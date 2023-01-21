@@ -1,10 +1,10 @@
 # sumy-project-boot
 
 ## [update 2023.01.21 - project migration]
-LEGACY SPRING -> SPRINGBOOT
-MAVEN -> GRADLE
-JDK1.16 -> JDK1.8
-AWS(EC2) 제외
+LEGACY SPRING -> SPRINGBOOT  
+MAVEN -> GRADLE  
+JDK1.16 -> JDK1.8  
+AWS(EC2) 제외  
 
 # 개발 환경
 ## DATABASE
@@ -14,7 +14,7 @@ AWS(EC2) 제외
 - UNIFY TEMPLATE(bootstrap)
 - JSP/JSTL
 - javascript/jquery
-- css / flex layout
+- CSS / flex layout
 
 ## BACKEND
 - springboot + spring security
@@ -25,8 +25,8 @@ AWS(EC2) 제외
 - java-mail
 
 # 세팅
-/upload -> root("/") 위치로 저장
-/db -> mysql db 복원
+/upload -> root("/") 위치로 저장  
+/db -> mysql db 복원  
 
 ```
 [관리자 계정]
