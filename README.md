@@ -13,6 +13,8 @@ AWS(EC2) 제외
 ## FRONTEND
 - UNIFY TEMPLATE(bootstrap)
 - JSP/JSTL
+- javascript/jquery
+- css / flex layout
 
 ## BACKEND
 - springboot + spring security
