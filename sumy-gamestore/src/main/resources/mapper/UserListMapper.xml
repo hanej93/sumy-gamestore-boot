@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.sumy.gamestore.mapper.UserInfoMapper">
+ 	<select id="selectUserInfo" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.model.UserInfo">
+ 		select * from user_info
+ 		
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+				AND user_nickname like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="blacklistYn != null and blacklistYn != '' and blacklistYn == 'Yes'">
+				AND user_blacklist = 1
+			</if>
+			
+			<if test="blacklistYn != null and blacklistYn != '' and blacklistYn == 'No'">
+				AND user_blacklist = 0
+			</if>
+		</trim>
+		order by user_id desc limit #{start}, #{cntPerPage}
+		
+
+ 	</select>
+ 	
+ 	<select id="countUserList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
+ 		select count(*) from user_info 
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="	keyword != null and keyword != '' ">
+				AND user_nickname like CONCAT('%', #{keyword}, '%')
+			</if>
+
+			<if test="blacklistYn != null and blacklistYn != '' and blacklistYn == 'Yes'">
+				AND user_blacklist = 1
+			</if>
+			
+			<if test="blacklistYn != null and blacklistYn != '' and blacklistYn == 'No'">
+				AND user_blacklist = 0
+			</if>
+		</trim>
+
+ 	</select>
+ 	
+</mapper>

@@ -1,0 +1,12 @@
+[관리자 계정]
+아이디: rapmon@gmail.com
+비밀번호: asdf1234!@#$
+
+/upload 폴더 루트에 저장
+
+/database 내 db 적용(ej.sql)
+
+1) 백업
+mysql -u root -p sumy < ej.sql
+2) 복원
+mysqldump -u root-p sumy > ej.sql

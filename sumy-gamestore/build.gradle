@@ -1,0 +1,50 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.9-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.sumy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-quartz'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	implementation 'com.github.scribejava:scribejava-core:2.8.1'
+	implementation 'org.apache.httpcomponents:httpcore:4.4.14'
+	implementation 'org.apache.httpcomponents:httpclient:4.5.1'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	runtimeOnly 'org.apache.taglibs:taglibs-standard-impl:1.2.5'
+	implementation 'org.apache.taglibs:taglibs-standard-spec:1.2.5'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'org.springframework.security:spring-security-taglibs:5.2.2.RELEASE'
+	implementation 'javax.servlet:jstl'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

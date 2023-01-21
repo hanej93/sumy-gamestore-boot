@@ -1,0 +1,43 @@
+debug: false
+spring:
+  application:
+    name: sumy
+  profiles:
+    active: local
+  mvc:
+    throwExceptionIfNoHandlerFound: true
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  jmx:
+    enabled: false
+  devtools:
+    livereload:
+      enabled: false
+    restart:
+      enabled: false
+    add-properties: false
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  output:
+    ansi:
+      enabled: detect
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/sumy?serverTimezone=Asia/Seoul&chracterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER:root}
+    password: ${DB_PASSWD:mysql}
+    hikari:
+      maximum-pool-size: 5
+
+mybatis:
+  config-location: classpath:mybatis_config.xml
+  mapper-locations: mapper/*.xml
+
+
+logging:
+  pattern:
+    console: '%(%d{yyyy-MM-dd HH:mm:ss} [%thread] %30.30logger:%-4line) %-5level > %msg\n'
+  level:
+    root: info

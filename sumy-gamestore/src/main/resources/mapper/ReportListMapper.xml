@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.sumy.gamestore.mapper.ReportListMapper">
+ 	<select id="selectReportList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.dto.ReportReviewUserDto">
+ 		select 
+
+		rp.report_id,
+		rp.report_from_user_id,
+		rp.review_id,
+		rp.report_text,
+		rp.report_write_date,
+		rp.report_read_yn,
+		
+		fu.user_name as from_user_name,
+		fu.user_nickname as from_user_nickname,
+		fu.user_email as from_user_email,
+		
+		tu.user_name as to_user_name,
+		tu.user_nickname as to_user_nickname,
+		tu.user_email as to_user_email,
+		tu.user_warning_count as to_user_warning_count,
+		tu.user_id as to_user_id,
+		
+		rv.review_text,
+		rv.review_report_count 
+		
+		from report_list as rp 
+		join user_info as fu 
+		on rp.report_from_user_id = fu.user_id 
+		
+		join review_list as rv 
+		on rp.review_id = rv.review_id 
+		
+		join user_info as tu 
+		on rv.user_id = tu.user_id
+ 		
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+				AND tu.user_nickname like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'Yes'">
+				AND report_read_yn = 1
+			</if>
+			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'No'">
+				AND report_read_yn = 0
+			</if>
+		</trim>
+		order by report_id desc limit #{start}, #{cntPerPage}
+		
+
+ 	</select>
+ 	
+ 	<select id="countReportList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
+ 		select 
+
+		count(*)
+		
+		from report_list as rp 
+		join user_info as fu 
+		on rp.report_from_user_id = fu.user_id 
+		
+		join review_list as rv 
+		on rp.review_id = rv.review_id 
+		
+		join user_info as tu 
+		on rv.user_id = tu.user_id
+		
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="	keyword != null and keyword != '' ">
+				AND tu.user_nickname like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'Yes'">
+				AND report_read_yn = 1
+			</if>
+			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'No'">
+				AND report_read_yn = 0
+			</if>
+		</trim>
+
+ 	</select>
+ 	
+</mapper>

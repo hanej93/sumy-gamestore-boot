@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.sumy.gamestore.mapper.NewsListMapper">
+ 	<select id="selectNewsList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.model.NewsList">
+ 		select * from news_list
+ 		
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' and (keywordOpt == '' or keywordOpt == 'title')">
+				AND news_title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="keyword != null and keyword != '' and (keywordOpt == 'content')">
+				AND news_text like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="keyword != null and keyword != '' and (keywordOpt == 'titleContent')">
+				AND news_title like CONCAT('%', #{keyword}, '%')
+				OR news_text like CONCAT('%', #{keyword}, '%')
+			</if>
+		</trim>
+		order by news_id desc limit #{start}, #{cntPerPage}
+		
+
+ 	</select>
+ 	
+ 	<select id="countNewsList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
+ 		select count(*) from news_list 
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="	keyword != null and keyword != '' ">
+			
+				AND news_title like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+		</trim>
+
+ 	</select>
+ 	
+</mapper>
