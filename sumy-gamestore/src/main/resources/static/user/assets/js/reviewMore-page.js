@@ -245,15 +245,12 @@ $(document).on('ready', function() {
 		}
 		
 		
-		
-		
 		let data = {
 			gameId:$(this).attr("gameId"),
 			userId:$(this).attr("userId"),
 			reviewText:$(riviewInsertTestarea).val(),
 			reviewStarRating:$("#reviewWriteStar").children('.g-color-primary').length
 		};
-		
 		
 		$.ajax({
 			type:"POST",

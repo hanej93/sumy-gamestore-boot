@@ -21,6 +21,4 @@ public class ReviewList {
 	private int reviewStarRating;
 	private LocalDateTime reviewWriteDate;
 	private LocalDateTime reviewUpdateDate;
-	
-	
 }

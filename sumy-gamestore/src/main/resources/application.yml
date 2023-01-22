@@ -17,8 +17,8 @@ spring:
     restart:
       enabled: false
     add-properties: false
-  jackson:
-    property-naming-strategy: SNAKE_CASE
+#  jackson:
+#    property-naming-strategy: SNAKE_CASE
   output:
     ansi:
       enabled: detect
@@ -34,6 +34,9 @@ spring:
 mybatis:
   config-location: classpath:mybatis_config.xml
   mapper-locations: mapper/*.xml
+
+server:
+  port: ${SERVER_PORT:8080}
 
 
 logging:
