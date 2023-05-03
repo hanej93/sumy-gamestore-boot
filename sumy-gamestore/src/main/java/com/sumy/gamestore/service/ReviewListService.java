@@ -2,6 +2,7 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,12 @@ import com.sumy.gamestore.mapper.ReviewListMapper;
 import com.sumy.gamestore.mapper.UserInfoMapper;
 import com.sumy.gamestore.model.ReviewList;
 
+@RequiredArgsConstructor
 @Service
 public class ReviewListService {
 
-	@Autowired
-	private ReviewListMapper reviewListMapper;
-	
-	@Autowired
-	private UserInfoMapper userInfoMapper; 
+	private final ReviewListMapper reviewListMapper;
+	private final UserInfoMapper userInfoMapper;
 
 	// 총 리뷰 갯수 조회
 	public int 리뷰총개수(PagingVO vo) {

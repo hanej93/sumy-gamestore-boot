@@ -1,15 +1,17 @@
 package com.sumy.gamestore.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sumy.gamestore.mapper.UpdateUserMapper;
 import com.sumy.gamestore.model.UserInfo;
 
+@RequiredArgsConstructor
 @Service
 public class UpdateUserService {
-	@Autowired
-	UpdateUserMapper updateUserMapper;
+
+	private final UpdateUserMapper updateUserMapper;
 	
 	//프로필 이미지 업데이트
 	public UserInfo insertUserProfileImage(UserInfo userInfo) {

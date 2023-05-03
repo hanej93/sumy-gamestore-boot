@@ -2,6 +2,7 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +10,11 @@ import com.sumy.gamestore.dto.WishlistGameInfoDto;
 import com.sumy.gamestore.mapper.WishlistMapper;
 import com.sumy.gamestore.model.WishlistGame;
 
+@RequiredArgsConstructor
 @Service
 public class WishListService {
 
-	@Autowired
-	private WishlistMapper wishlistMapper;
+	private final WishlistMapper wishlistMapper;
 	
 	public List<WishlistGameInfoDto> selectWishListByUserId(int userId) {
 		return wishlistMapper.selectWishList(userId);

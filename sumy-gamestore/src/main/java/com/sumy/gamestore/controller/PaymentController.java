@@ -40,10 +40,12 @@ import com.sumy.gamestore.service.PaymentService;
 import com.sumy.gamestore.service.UpdateUserService;
 import com.sumy.gamestore.service.WishListService;
 
+/**
+ * 결제관련 로직
+ */
 @RequiredArgsConstructor
 @Controller
 public class PaymentController {
-	
 
 	private final PaymentService paymentService;
 

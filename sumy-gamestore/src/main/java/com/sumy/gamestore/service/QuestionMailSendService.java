@@ -1,10 +1,11 @@
 package com.sumy.gamestore.service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Random;
 
+import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,17 @@ import org.springframework.stereotype.Service;
 import com.sumy.gamestore.mail.EmailCertification;
 import com.sumy.gamestore.mail.MailUtils;
 
+@RequiredArgsConstructor
 @Service
 public class QuestionMailSendService {
-	@Autowired
-	private EmailCertification test = new EmailCertification();
-	private JavaMailSender mailSender = test.getJavaMailSender();// mailSender 객체
-	
+	private final EmailCertification emailCertification = new EmailCertification();
+	private JavaMailSender mailSender;
+
+	@PostConstruct
+	private void init() {
+		mailSender = emailCertification.getJavaMailSender();// mailSender 객체
+	}
+
 	public boolean sendMail(String email, String text) {
 
 		try {

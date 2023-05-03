@@ -1,30 +1,20 @@
 package com.sumy.gamestore.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.dto.QuestionUserDto;
 import com.sumy.gamestore.mapper.QuestionListMapper;
 import com.sumy.gamestore.model.QuestionList;
+import com.sumy.gamestore.vo.PagingVO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Service
 public class QuestionListService {
 
-	@Autowired
-	private QuestionListMapper questionListMapper;
+	private final QuestionListMapper questionListMapper;
 
-//	private int questionId;
-//	private int userId;
-//	private LocalDateTime questionTitle;
-//	private boolean questionAnswerYn;
-//	private boolean questionReadYn;
-//	private String questionImage1;
-//	private String questionImage2;
-//	private String questionImage3;
-	
 	// 총 문의 갯수 조회
 	public int 문의총개수(PagingVO vo) {
 		return questionListMapper.countQuestionList(vo);

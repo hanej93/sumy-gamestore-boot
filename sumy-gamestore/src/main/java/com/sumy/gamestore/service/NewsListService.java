@@ -3,6 +3,7 @@ package com.sumy.gamestore.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +11,11 @@ import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.mapper.NewsListMapper;
 import com.sumy.gamestore.model.NewsList;
 
+@RequiredArgsConstructor
 @Service
 public class NewsListService {
 
-	@Autowired
-	private NewsListMapper newsListMapper;
+	private final NewsListMapper newsListMapper;
 	
 	public int 뉴스추가(NewsList newsList) {
 		newsList.setNewsWriteDate(LocalDateTime.now());

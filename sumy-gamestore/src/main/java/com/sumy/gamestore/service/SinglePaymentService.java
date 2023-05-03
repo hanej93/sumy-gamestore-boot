@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -17,20 +18,14 @@ import com.sumy.gamestore.model.GameInfo;
 import com.sumy.gamestore.model.PurchasedGameList;
 import com.sumy.gamestore.model.WishlistGame;
 
+@RequiredArgsConstructor
 @Service
 public class SinglePaymentService {
 
-	@Autowired
-	private PaymentMapper paymentMapper;
-	
-	@Autowired
-	WishListService wishListService;
-	
-	@Autowired
-	GameInfoService gameInfoService;
-	
-	@Autowired
-	PurchasedMapper purchasedMapper;
+	private final PaymentMapper paymentMapper;
+	private final WishListService wishListService;
+	private final GameInfoService gameInfoService;
+	private final PurchasedMapper purchasedMapper;
 	
 	@Transactional 
 	public int insertPurchasedGame(Authentication authentication, int gameId) {

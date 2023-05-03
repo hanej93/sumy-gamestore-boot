@@ -41,6 +41,9 @@ import com.sumy.gamestore.service.LoginUserService;
 import com.sumy.gamestore.service.MailSendService;
 import com.sumy.gamestore.service.UserInfoService;
 
+/**
+ * 로그인/회원가입/비밀번호찾기
+ */
 @Controller
 //@RequestMapping("/sumy")
 @RequiredArgsConstructor
@@ -228,7 +231,7 @@ public class LoginController {
 		return "user/page-password-recovery-1";
 	}
 
-	// 프로필 변경
+	// 회원가입시 프로필 변경
 	@ResponseBody
 	@PostMapping("/sumy/profileImgAdd")
 	public String test17(@RequestPart(value = "file", required = false) MultipartFile file) {

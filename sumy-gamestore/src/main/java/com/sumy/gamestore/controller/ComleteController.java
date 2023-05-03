@@ -8,20 +8,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sumy.gamestore.model.UserInfo;
 import com.sumy.gamestore.service.JoinedUserService;
 
+@Deprecated
 //@Controller
 //@RequestMapping("/success")
-//public class ComleteController {
+public class ComleteController {
 
-//
-//	@Autowired
-//	JoinedUserService joinedUserService;
-//
-//	
-//	// 회원가입 완료 화면
-//	@PostMapping("/login")
-//	public String test8(UserInfo userInfo) {
-//		int total = joinedUserService.addUser(userInfo);
-//		System.out.println(total);
-//		return "user/page-order-completed-1";
-//	}
-//}
+
+	@Autowired
+	JoinedUserService joinedUserService;
+
+
+	// 회원가입 완료 화면
+	@PostMapping("/login")
+	public String test8(UserInfo userInfo) {
+		int total = joinedUserService.addUser(userInfo);
+		System.out.println(total);
+		return "user/page-order-completed-1";
+	}
+}

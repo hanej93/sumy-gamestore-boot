@@ -2,6 +2,7 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,11 +11,11 @@ import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.mapper.UserInfoMapper;
 import com.sumy.gamestore.model.UserInfo;
 
+@RequiredArgsConstructor
 @Service
 public class UserInfoService {
 
-	@Autowired
-	private UserInfoMapper userInfoMapper;
+	private final UserInfoMapper userInfoMapper;
 	
 	// 총 유저 갯수 조회
 	public int 유저총개수(PagingVO vo) {

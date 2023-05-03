@@ -16,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sumy.gamestore.model.QuestionList;
 import com.sumy.gamestore.service.QuestionUserService;
 
+/**
+ * 푸터의 문의하기 팝업
+ */
 @RequiredArgsConstructor
 @Controller
 public class QuestionUserController {

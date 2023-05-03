@@ -2,6 +2,7 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +11,14 @@ import com.sumy.gamestore.dto.PurchasedGameInfoDto;
 import com.sumy.gamestore.mapper.PurchasedMapper;
 import com.sumy.gamestore.model.PurchasedGameList;
 
+@RequiredArgsConstructor
 @Service
 public class PurchasedService {
 
-	@Autowired
-	private PurchasedMapper purchasedMapper;
+	private final PurchasedMapper purchasedMapper;
 	
 	public List<PurchasedGameInfoDto> selectPurchasedGameByUserId(int userId) {
 		return purchasedMapper.selectPurchasedGameListByUserId(userId);
-		
 	}
 	
 	public int 구매한게임총개수(PagingVO vo) {

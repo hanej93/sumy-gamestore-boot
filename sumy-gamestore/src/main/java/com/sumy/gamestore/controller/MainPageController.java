@@ -1,23 +1,22 @@
 package com.sumy.gamestore.controller;
 
-import java.util.List;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.sumy.gamestore.model.GameInfo;
 import com.sumy.gamestore.model.NewsList;
 import com.sumy.gamestore.service.ShowGameService;
 import com.sumy.gamestore.service.ShowNewsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
+/**
+ * 메인화면 뷰
+ */
 @RequiredArgsConstructor
 @Controller
 public class MainPageController {
-	
 
 	private final ShowGameService showGameService;
 	private final ShowNewsService showNewsService;

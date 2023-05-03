@@ -18,6 +18,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * 게임 상세보기 결제화면
+ */
 @RequiredArgsConstructor
 @Controller
 public class SinglePaymentController {
