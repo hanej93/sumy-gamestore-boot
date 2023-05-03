@@ -1,16 +1,14 @@
 package com.sumy.gamestore.controller.admin;
 
+import com.sumy.gamestore.service.NewsListService;
+import com.sumy.gamestore.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.sumy.gamestore.vo.PagingVO;
-import com.sumy.gamestore.service.NewsListService;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class NewsListController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		int total = newsListService.뉴스총개수(vo);
+		int total = newsListService.getTotalCount(vo);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";
@@ -35,7 +33,7 @@ public class NewsListController {
 		}
 		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), vo.getKeyword());
 		model.addAttribute("paging", vo);
-		model.addAttribute("viewAll", newsListService.한페이지뉴스리스트(vo));
+		model.addAttribute("viewAll", newsListService.findList(vo));
 		
 		return "admin/news_list";
 	}
@@ -47,7 +45,7 @@ public class NewsListController {
 	
 	@GetMapping("/news/update/{newsId}")
 	public String updateNews(@PathVariable int newsId, Model model) {
-		model.addAttribute("newsList", newsListService.뉴스검색(newsId));
+		model.addAttribute("newsList", newsListService.findById(newsId));
 		
 		return "admin/news_update";
 	}

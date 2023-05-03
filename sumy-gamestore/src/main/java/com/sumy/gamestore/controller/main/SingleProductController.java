@@ -1,7 +1,6 @@
 package com.sumy.gamestore.controller.main;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,15 +46,15 @@ public class SingleProductController {
 		}
 		
 		// 관련게임 조회
-		GameInfo inputGameInfo = gameInfoService.게임검색(gameId);
+		GameInfo inputGameInfo = gameInfoService.findById(gameId);
 		
 		model.addAttribute("gameInfo", inputGameInfo);
 		model.addAttribute("reviewList", reviewListService.리뷰검색_게임아이디_5(gameId));
-		model.addAttribute("gameCategoryList", gameInfoService.카테고리이름검색(gameId));
-		model.addAttribute("relatedGameList", gameInfoService.관련게임검색(inputGameInfo.getGameCategoryId1()));
+		model.addAttribute("gameCategoryList", gameInfoService.getCategoryNamesByGameId(gameId));
+		model.addAttribute("relatedGameList", gameInfoService.selectRelativeGamesByCategoryId(inputGameInfo.getGameCategoryId1()));
 		
 		
-		System.out.println(gameInfoService.게임검색(gameId));
+		System.out.println(gameInfoService.findById(gameId));
 		System.out.println(reviewListService.리뷰검색_게임아이디_5(gameId));
 		
 		return "user/page-single-product-1";
@@ -80,7 +79,7 @@ public class SingleProductController {
 		}
 		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", vo);
-		model.addAttribute("gameInfo", gameInfoService.게임검색(gameId));
+		model.addAttribute("gameInfo", gameInfoService.findById(gameId));
 		model.addAttribute("reviewList", reviewListService.리뷰검색_게임아이디(gameId, vo));
 		
 		System.out.println(gameId);

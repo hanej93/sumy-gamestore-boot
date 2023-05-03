@@ -1,48 +1,147 @@
 package com.sumy.gamestore.service;
 
-import java.util.List;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.sumy.gamestore.dto.CategoryCountDto;
-import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.mapper.GameInfoMapper;
 import com.sumy.gamestore.model.GameInfo;
+import com.sumy.gamestore.vo.PagingVO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class GameInfoService {
 
 	private final GameInfoMapper gameInfoMapper;
-	
-	public int 게임추가(GameInfo gameInfo) {
-		return gameInfoMapper.insertGame(gameInfo);
-	}
-	
+	private final FileUploadService fileUploadService;
+
 	// 총 게임 갯수 조회
-	public int 게임총개수(PagingVO vo) {
+	public int getTotalCount(PagingVO vo) {
 		return gameInfoMapper.countGameList(vo);
 	}
 	
 	// 한 페이지 게임 리스트 조회
-	public List<GameInfo> 한페이지게임리스트(PagingVO vo){
+	public List<GameInfo> findList(PagingVO vo){
 		return gameInfoMapper.selectGameList(vo);
 	}
 	
-	public GameInfo 게임검색(int gameId) {
+	public GameInfo findById(int gameId) {
 		GameInfo gameInfo = gameInfoMapper.selectOneByGameId(gameId);
 		return gameInfo;
 	}
-	
-	public int 게임수정(GameInfo gameInfo) {
-		return gameInfoMapper.updateGame(gameInfo);
+
+	@Transactional
+	public int save(GameInfo gameInfo, MultipartFile file, List<MultipartFile> files) {
+		// 게임 썸네일 이미지 업로드
+		String resourcePathname = null;
+		if (!ObjectUtils.isEmpty(file)) {
+			resourcePathname = fileUploadService.uploadFile(file);
+		}
+
+		// 게임 미리보기 이미지 업로드
+		List<String> previewImgList = new ArrayList<String>(5);
+		for (int i = 0; i < 5; i++) {
+			previewImgList.add(null);
+		}
+		if (!ObjectUtils.isEmpty(files)) {
+			int index = 0;
+			for (MultipartFile previewFile : files) {
+				String previewImgResourcePathname = fileUploadService.uploadFile(previewFile);
+				previewImgList.set(index++, previewImgResourcePathname);
+			}
+		}
+
+		GameInfo addGame =
+				GameInfo.builder()
+						.gameId(0)
+						.gameTitle(gameInfo.getGameTitle())
+						.gameDev(gameInfo.getGameDev())
+						.gamePrice(gameInfo.getGamePrice())
+						.gameDiscountRate(gameInfo.getGameDiscountRate())
+						.gameSubText(gameInfo.getGameSubText())
+						.gameMainText(gameInfo.getGameMainText())
+						.gameRate(gameInfo.getGameRate())
+						.gameThumbImage(resourcePathname)
+						.gameCategoryId1(gameInfo.getGameCategoryId1())
+						.gameCategoryId2(gameInfo.getGameCategoryId2())
+						.gameCategoryId3(gameInfo.getGameCategoryId3())
+						.gameCategoryId4(gameInfo.getGameCategoryId4())
+						.gameIntroImage1(previewImgList.get(0))
+						.gameIntroImage2(previewImgList.get(1))
+						.gameIntroImage3(previewImgList.get(2))
+						.gameIntroImage4(previewImgList.get(3))
+						.gameIntroImage5(previewImgList.get(4))
+						.gameReleaseDate(LocalDateTime.now())
+						.gameUpdateDate(null)
+						.gameSaleCount(0)
+						.gameTotalEarnings(0L)
+						.build();
+
+		return gameInfoMapper.insertGame(addGame);
+	}
+
+	@Transactional
+	public int update(GameInfo gameInfo, MultipartFile file, List<MultipartFile> files) {
+		// 아이디로 데이터를 가져옴
+		GameInfo oldGame = findById(gameInfo.getGameId());
+
+		// 게임 썸네일 이미지 업로드
+		String resourcePathname = null;
+		if (!ObjectUtils.isEmpty(file)) {
+			resourcePathname = fileUploadService.uploadFile(file);
+		}
+
+		// 게임 미리보기 이미지 업로드
+		List<String> previewImgList = new ArrayList<String>(5);
+		for (int i = 0; i < 5; i++) {
+			previewImgList.add(null);
+		}
+		if (!ObjectUtils.isEmpty(files)) {
+			int index = 0;
+			for (MultipartFile previewFile : files) {
+				String previewImgResourcePathname = fileUploadService.uploadFile(previewFile);
+				previewImgList.set(index++, previewImgResourcePathname);
+			}
+		}
+
+		GameInfo updateGame =
+				GameInfo.builder()
+						.gameId(gameInfo.getGameId())
+						.gameTitle(gameInfo.getGameTitle())
+						.gameDev(gameInfo.getGameDev())
+						.gamePrice(gameInfo.getGamePrice())
+						.gameDiscountRate(gameInfo.getGameDiscountRate())
+						.gameSubText(gameInfo.getGameSubText())
+						.gameMainText(gameInfo.getGameMainText())
+						.gameRate(gameInfo.getGameRate())
+						.gameThumbImage(resourcePathname)
+						.gameCategoryId1(gameInfo.getGameCategoryId1())
+						.gameCategoryId2(gameInfo.getGameCategoryId2())
+						.gameCategoryId3(gameInfo.getGameCategoryId3())
+						.gameCategoryId4(gameInfo.getGameCategoryId4())
+						.gameIntroImage1(previewImgList.get(0))
+						.gameIntroImage2(previewImgList.get(1))
+						.gameIntroImage3(previewImgList.get(2))
+						.gameIntroImage4(previewImgList.get(3))
+						.gameIntroImage5(previewImgList.get(4))
+						.gameReleaseDate(oldGame.getGameReleaseDate())
+						.gameUpdateDate(LocalDateTime.now())
+						.gameSaleCount(oldGame.getGameSaleCount())
+						.gameTotalEarnings(oldGame.getGameTotalEarnings())
+						.build();
+
+		return gameInfoMapper.updateGame(updateGame);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public int 게임삭제(int gameId) {
+	public int deleteById(int gameId) {
 		// 1. 리뷰리스트를 게임 아이디로 조회해서 해당 리뷰아이디를 List<> 로 받아옴
 		// List<Integer> deleteReviewIdList = 1번의 결과;
 		List<Integer> deleteReviewIdList = gameInfoMapper.reviewIdList(gameId);
@@ -60,15 +159,15 @@ public class GameInfoService {
 		return gameInfoMapper.deleteGame(gameId);
 	}
 	
-	public List<String> 카테고리이름검색(int gameId){
+	public List<String> getCategoryNamesByGameId(int gameId){
 		return gameInfoMapper.selectCategoryNameByCategoryId(gameId);
 	}
 
-	public List<GameInfo> 관련게임검색(int categoryId) {
+	public List<GameInfo> selectRelativeGamesByCategoryId(int categoryId) {
 		return gameInfoMapper.selectRelatedGameInfo(categoryId);
 	}
 	
-	public List<CategoryCountDto> 카테고리리스트검색(){
+	public List<CategoryCountDto> findAllCategoriesWithCount(){
 		return gameInfoMapper.countCategoryListGroupById();
 	}
 }

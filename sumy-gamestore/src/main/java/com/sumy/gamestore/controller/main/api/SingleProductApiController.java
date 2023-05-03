@@ -3,7 +3,6 @@ package com.sumy.gamestore.controller.main.api;
 import java.time.LocalDateTime;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,9 +71,9 @@ public class SingleProductApiController {
 										   .reportReadYn(0)
 										   .build();
 										   
-		reportListService.댓글신고추가(inputReport);
+		reportListService.save(inputReport);
 		ReviewList review = reviewListService.리뷰검색(reportList.getReviewId());
-		review.setReviewReportCount(reportListService.신고개수_리뷰(reportList.getReviewId()));
+		review.setReviewReportCount(reportListService.getCountById(reportList.getReviewId()));
 		reviewListService.리뷰수정(review);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);

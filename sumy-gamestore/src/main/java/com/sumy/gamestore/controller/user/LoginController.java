@@ -98,7 +98,7 @@ public class LoginController {
 		}
 		String authorityRate = "ROLE_USER";
 		
-		UserInfo userInfo = userInfoService.유저검색_이메일(userEmail);
+		UserInfo userInfo = userInfoService.findByUserEmail(userEmail);
 		
 		if(userInfo == null) {
 			UserInfo joinUser
@@ -119,10 +119,10 @@ public class LoginController {
 			joinedUserService.addUser(joinUser);
 		}
 		
-		UserInfo updatePwdUser = userInfoService.유저검색_이메일(userEmail);
+		UserInfo updatePwdUser = userInfoService.findByUserEmail(userEmail);
 		if(!bcryptPasswordEncoder.matches(rawPassword, updatePwdUser.getUserPassword()) ) {
 			updatePwdUser.setUserPassword(userPassword);
-			userInfoService.유저수정(updatePwdUser);
+			userInfoService.update(updatePwdUser);
 		}
 		
 
@@ -167,7 +167,7 @@ public class LoginController {
 		String rawPassword = "sumy1234!@#$";
 		String userPassword = bcryptPasswordEncoder.encode(rawPassword);
 		
-		UserInfo kuserInfo = userInfoService.유저검색_이메일(kemail);
+		UserInfo kuserInfo = userInfoService.findByUserEmail(kemail);
 		
 		if(kuserInfo == null) {
 			UserInfo joinUser 
@@ -188,10 +188,10 @@ public class LoginController {
 		}
 		
 		
-		UserInfo updatePwdUser = userInfoService.유저검색_이메일(kemail);
+		UserInfo updatePwdUser = userInfoService.findByUserEmail(kemail);
 		if(!bcryptPasswordEncoder.matches(rawPassword, updatePwdUser.getUserPassword()) ) {
 			updatePwdUser.setUserPassword(userPassword);
-			userInfoService.유저수정(updatePwdUser);
+			userInfoService.update(updatePwdUser);
 		}
 		
 		Authentication authentication = authenticationManager

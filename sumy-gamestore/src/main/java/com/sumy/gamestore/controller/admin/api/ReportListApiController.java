@@ -1,14 +1,5 @@
 package com.sumy.gamestore.controller.admin.api;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.sumy.gamestore.dto.ReportReviewUserDto;
 import com.sumy.gamestore.dto.ResponseDto;
 import com.sumy.gamestore.model.ReportList;
@@ -16,6 +7,13 @@ import com.sumy.gamestore.model.UserInfo;
 import com.sumy.gamestore.service.ReportListService;
 import com.sumy.gamestore.service.ReviewListService;
 import com.sumy.gamestore.service.UserInfoService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,20 +27,20 @@ public class ReportListApiController {
 	// 리포트 읽음 수정
 	@PutMapping("/admin/report/readYn")
 	public ResponseDto<Integer> updateReportReadYn(@RequestBody ReportList reportList) {
-		ReportList resultReport = reportListService.신고검색(reportList.getReportId());
+		ReportList resultReport = reportListService.findById(reportList.getReportId());
 		resultReport.setReportReadYn(reportList.getReportReadYn());
 		// 신고수정
-		int result = reportListService.신고수정(resultReport);
+		int result = reportListService.update(resultReport);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
 	}
 	
 	// 유저 경고 수정
 	@PutMapping("/admin/report/memo")
 	public ResponseDto<Integer> updateUserWarningCnt(@RequestBody ReportReviewUserDto reportReviewUserDto) {
-		UserInfo resultUser =  userInfoService.유저검색(reportReviewUserDto.getToUserId());
+		UserInfo resultUser =  userInfoService.findById(reportReviewUserDto.getToUserId());
 		resultUser.setUserWarningCount(reportReviewUserDto.getToUserWarningCount());
 		
-		userInfoService.유저수정(resultUser);
+		userInfoService.update(resultUser);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -50,7 +48,7 @@ public class ReportListApiController {
 	// 신고삭제 기능
 	@DeleteMapping("/admin/report/list")
 	public ResponseDto<Integer> deleteReport(@RequestBody ReportList reportList) {
-		int result = reportListService.신고삭제(reportList.getReportId());
+		int result = reportListService.delete(reportList.getReportId());
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
 	}

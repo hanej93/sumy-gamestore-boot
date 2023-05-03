@@ -21,7 +21,7 @@ public class GameListController {
 	public String showGame(PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-		int total = gameInfoService.게임총개수(vo);
+		int total = gameInfoService.getTotalCount(vo);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";
@@ -32,7 +32,7 @@ public class GameListController {
 		}
 		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), vo.getKeyword());
 		model.addAttribute("paging", vo);
-		model.addAttribute("viewAll", gameInfoService.한페이지게임리스트(vo));
+		model.addAttribute("viewAll", gameInfoService.findList(vo));
 		
 		return "admin/game_list";
 	}
@@ -40,7 +40,7 @@ public class GameListController {
 	@GetMapping("/game/add")
 	public String addGame(Model model) {
 		
-		model.addAttribute("categoryList", gameInfoService.카테고리리스트검색());
+		model.addAttribute("categoryList", gameInfoService.findAllCategoriesWithCount());
 		
 		return "admin/game_add";
 	}
@@ -48,8 +48,8 @@ public class GameListController {
 	@GetMapping("/game/update/{gameId}")
 	public String updateGame(@PathVariable int gameId, Model model) {
 		
-		model.addAttribute("categoryList", gameInfoService.카테고리리스트검색());
-		model.addAttribute("gameInfo", gameInfoService.게임검색(gameId));
+		model.addAttribute("categoryList", gameInfoService.findAllCategoriesWithCount());
+		model.addAttribute("gameInfo", gameInfoService.findById(gameId));
 		
 		return "admin/game_update";
 	}

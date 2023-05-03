@@ -1,7 +1,6 @@
 package com.sumy.gamestore.controller.main;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,7 @@ public class NewsController {
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
 			, @RequestParam(value="principal", required=false)PrincipalDetail principal) {
 		
-		int total = newsListService.뉴스총개수(vo);
+		int total = newsListService.getTotalCount(vo);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";
@@ -39,7 +38,7 @@ public class NewsController {
 		vo.setKeywordOpt(keywordOpt);
 		
 		model.addAttribute("paging", vo);
-		model.addAttribute("viewAll", newsListService.한페이지뉴스리스트(vo));
+		model.addAttribute("viewAll", newsListService.findList(vo));
 		
 		return "user/page-news-list";
 	}
@@ -48,7 +47,7 @@ public class NewsController {
 	@GetMapping("/sumy/news/{newsId}")
 	public String showSingleProduct(@PathVariable int newsId, Model model) {
 		
-		model.addAttribute("news", newsListService.뉴스검색(newsId));
+		model.addAttribute("news", newsListService.findById(newsId));
 
 		return "user/page-news-detail";
 	}

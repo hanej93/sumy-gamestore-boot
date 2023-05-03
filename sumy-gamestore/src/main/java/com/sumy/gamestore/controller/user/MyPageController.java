@@ -6,10 +6,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,7 +53,7 @@ public class MyPageController {
     @PostMapping("/user/profileNickNameUpdate")
     public ResponseEntity<String> profileNickNameUpdate(UserInfo userInfo) {
         myPageService.insertUserNickname(userInfo);
-        UserInfo loginUser = userInfoService.유저검색(userInfo.getUserId());
+        UserInfo loginUser = userInfoService.findById(userInfo.getUserId());
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUserEmail(), userInfo.getUserPassword()));
@@ -71,7 +68,7 @@ public class MyPageController {
     public ResponseEntity<String> profileAddressUpdate(UserInfo userInfo) {
         myPageService.insertUserAddress(userInfo);
 
-        UserInfo loginUser = userInfoService.유저검색(userInfo.getUserId());
+        UserInfo loginUser = userInfoService.findById(userInfo.getUserId());
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUserEmail(), userInfo.getUserPassword()));
@@ -97,7 +94,7 @@ public class MyPageController {
     public ResponseEntity<String> profilePhonesUpdate(UserInfo userInfo) {
         myPageService.insertUserPhoneNumber(userInfo);
 
-        UserInfo loginUser = userInfoService.유저검색(userInfo.getUserId());
+        UserInfo loginUser = userInfoService.findById(userInfo.getUserId());
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUserEmail(), userInfo.getUserPassword()));
@@ -132,7 +129,7 @@ public class MyPageController {
     @PostMapping("/pwdRecoveryUpdate")
     public ResponseEntity<String> pwdRecoveryUpdate(UserInfo userInfo) {
         System.out.println("수정할 유저정보" + userInfo);
-        UserInfo updateUser = userInfoService.유저검색(userInfo.getUserId());
+        UserInfo updateUser = userInfoService.findById(userInfo.getUserId());
         String oldPS = userInfo.getUserPassword();
         String encodePS = bcryptPasswordEncoder.encode(oldPS);
         System.out.println("인코딩 된 비밀번호 : " + encodePS);
@@ -153,7 +150,7 @@ public class MyPageController {
     public int checkPassword(@RequestBody UserInfo userInfo) {
         System.out.println("유저비밀번호" + userInfo.getUserPassword());
         System.out.println("유저아이디" + userInfo.getUserId());
-        UserInfo loginUser = userInfoService.유저검색(userInfo.getUserId());
+        UserInfo loginUser = userInfoService.findById(userInfo.getUserId());
         String inputPassword = userInfo.getUserPassword();
         String loginPassword = loginUser.getUserPassword();
         if (bcryptPasswordEncoder.matches(inputPassword, loginPassword)) {
@@ -216,7 +213,7 @@ public class MyPageController {
         PrincipalDetail principal = (PrincipalDetail) authentication.getPrincipal();
         int userId = principal.getUser().getUserId();
 
-        UserInfo userInfo = userInfoService.유저검색(userId);
+        UserInfo userInfo = userInfoService.findById(userId);
 
         if (file == null || file.isEmpty()) {
             System.out.println("파일이 없음");
@@ -254,7 +251,7 @@ public class MyPageController {
         System.out.println(file.getOriginalFilename());
         System.out.println(resourcePathname);
         userInfo.setUserProfileImage(resourcePathname);
-        userInfoService.유저수정(userInfo);
+        userInfoService.update(userInfo);
 
         return resourcePathname;
     }
