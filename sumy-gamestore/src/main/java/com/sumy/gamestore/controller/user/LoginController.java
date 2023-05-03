@@ -12,11 +12,9 @@ import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -38,7 +36,7 @@ import com.sumy.gamestore.auth.naver.NaverLoginVO;
 import com.sumy.gamestore.model.UserInfo;
 import com.sumy.gamestore.service.JoinedUserService;
 import com.sumy.gamestore.service.LoginUserService;
-import com.sumy.gamestore.service.MailSendService;
+import com.sumy.gamestore.mail.MailSendService;
 import com.sumy.gamestore.service.UserInfoService;
 
 /**

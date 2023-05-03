@@ -1,18 +1,15 @@
-package com.sumy.gamestore.service;
-
-import java.io.UnsupportedEncodingException;
-import java.util.Random;
-
-import javax.annotation.PostConstruct;
-import javax.mail.MessagingException;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
+package com.sumy.gamestore.mail;
 
 import com.sumy.gamestore.mail.EmailCertification;
 import com.sumy.gamestore.mail.MailUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -70,5 +67,23 @@ public class MailSendService {
 			e.printStackTrace();
 		}
 		return authKey;
+	}
+
+	public boolean sendMail(String email, String mailContent, String mailTitle) {
+		try {
+			MailUtils sendMail = new MailUtils(mailSender);
+			sendMail.setSubject(mailTitle);
+			sendMail.setText(new StringBuffer().append(mailContent).toString());
+			sendMail.setFrom("kimsumy599@gmail.com", "sumy");
+			sendMail.setTo(email);
+			sendMail.send();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			return false;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
