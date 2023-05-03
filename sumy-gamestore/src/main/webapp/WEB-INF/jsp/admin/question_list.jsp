@@ -518,7 +518,7 @@
     <!-- 썸머노트 스크립트 -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     <!-- include summernote-ko-KR -->
-	<script src="/resources/static/admin/js/summernote-ko-KR.js"></script>
+	<script src="/resources/static/js/admin/summernote-ko-KR.js"></script>
 
     <!-- 썸머노트 설정 -->
     <script>
@@ -568,7 +568,7 @@
       });
 		
     </script>
-	<script src="/resources/static/admin/js/admin-question-list.js"></script>
+	<script src="/resources/static/js/admin/admin-question-list.js"></script>
 	
 </body>
 

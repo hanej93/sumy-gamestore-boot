@@ -338,7 +338,7 @@ $(document).ready(function() {
 			location.href = "/home-page";
 			return false;
 		}
-		location.href = "/user/login-security";
+		location.href = "../login-security";
 	});
 
 	//비밀번호 수정취소 : update review

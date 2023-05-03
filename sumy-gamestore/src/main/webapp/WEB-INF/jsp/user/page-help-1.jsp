@@ -427,7 +427,7 @@
 		src="/resources/static/assets/js/helpers/hs.file-attachments.js"></script>
 
 	<!-- JS Customization -->
-	<script src="/resources/static/user/js/footer.js"></script>
+	<script src="/resources/static/js/user/footer.js"></script>
 
 
 	<!-- JS Plugins Init. -->

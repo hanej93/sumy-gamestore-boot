@@ -20,7 +20,7 @@ let singleProduct = {
 				dataType: "json",
 				success: function(result) {
 					console.log("0원 결제 성공");
-					location.href="/user/orderSuccess2";
+					location.href="../orderSuccess2";
 				},
 				error: function(err) {
 					console.log("err" + err);

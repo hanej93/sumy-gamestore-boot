@@ -13,7 +13,7 @@ $(function() {
 				dataType: "text",
 				success: function(result) {
 					console.log("0원 결제 성공");
-					location.href="/user/orderSuccess";
+					location.href="../orderSuccess";
 				},
 				error: function(err) {
 					console.log("err" + err);
