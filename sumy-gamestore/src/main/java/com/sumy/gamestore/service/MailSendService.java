@@ -3,8 +3,10 @@ package com.sumy.gamestore.service;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
+import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -12,12 +14,18 @@ import org.springframework.stereotype.Service;
 import com.sumy.gamestore.mail.EmailCertification;
 import com.sumy.gamestore.mail.MailUtils;
 
-@Service("mss")
+@Service
+@RequiredArgsConstructor
 public class MailSendService {
-	@Autowired
-	private EmailCertification test = new EmailCertification();
-	private JavaMailSender mailSender = test.getJavaMailSender();// mailSender 객체
+
+	private final EmailCertification emailCertification;
+	private JavaMailSender mailSender;// mailSender 객체
 	private int size = 0;
+
+	@PostConstruct
+	private void init() {
+	    mailSender = emailCertification.getJavaMailSender();
+	}
 
 	// 인증키 생성
 	private String getKey(int size) {

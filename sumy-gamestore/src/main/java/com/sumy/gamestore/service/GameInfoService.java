@@ -2,6 +2,7 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +12,11 @@ import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.mapper.GameInfoMapper;
 import com.sumy.gamestore.model.GameInfo;
 
+@RequiredArgsConstructor
 @Service
 public class GameInfoService {
 
-	@Autowired
-	private GameInfoMapper gameInfoMapper;
+	private final GameInfoMapper gameInfoMapper;
 	
 	public int 게임추가(GameInfo gameInfo) {
 		return gameInfoMapper.insertGame(gameInfo);

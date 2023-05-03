@@ -439,7 +439,7 @@
 
       });
     </script>
-    <script src="/resources/static/etc/admin-game-list.js"></script>
+    <script src="/resources/static/admin/js/admin-game-list.js"></script>
     
 </body>
 

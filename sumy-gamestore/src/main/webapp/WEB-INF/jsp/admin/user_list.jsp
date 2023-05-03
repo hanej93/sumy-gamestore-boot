@@ -470,7 +470,7 @@
         
       });
     </script>
-    <script src="/resources/static/etc/admin-user-list.js"></script>
+    <script src="/resources/static/admin/js/admin-user-list.js"></script>
 </body>
 
 </html>

@@ -509,7 +509,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 	<!-- include summernote-ko-KR -->
-	<script src="/resources/static/etc/summernote-ko-KR.js"></script>
+	<script src="/resources/static/admin/js/summernote-ko-KR.js"></script>
 
 	<!-- 썸머노트 설정 -->
 	<script>
@@ -674,7 +674,7 @@
       });
     </script>
 
-	<script src="/resources/static/etc/admin-game-add.js"></script>
+	<script src="/resources/static/admin/js/admin-game-add.js"></script>
 
 </body>
 

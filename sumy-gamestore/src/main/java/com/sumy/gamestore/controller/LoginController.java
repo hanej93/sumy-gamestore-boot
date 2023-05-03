@@ -52,6 +52,7 @@ public class LoginController {
 	private final NaverLoginVO naverLoginVO;
 	private final AuthenticationManager authenticationManager;
 	private final LoginUserService loginUserService;
+	private final MailSendService mailSendService;
 
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/auth/naver/callback", method = { RequestMethod.GET, RequestMethod.POST })
@@ -223,6 +224,7 @@ public class LoginController {
 	// 비밀번호 찾기 화면
 	@GetMapping("/sumy/password-recovery")
 	public String test12() {
+
 		return "user/page-password-recovery-1";
 	}
 
@@ -280,8 +282,7 @@ public class LoginController {
 	@ResponseBody
 	@GetMapping("/sumy/checkMail")
 	public String SendMail(String mail, Model model) {
-		MailSendService mss = new MailSendService();
-		String authKey = mss.sendAuthMail(mail);// 인증메일 전송
+		String authKey = mailSendService.sendAuthMail(mail);// 인증메일 전송
 		model.addAttribute("authKey", authKey);
 		System.out.println("인증보내떠!");
 		return authKey;

@@ -353,7 +353,7 @@
 		src="/resources/static/assets/js/helpers/hs.file-attachments.js"></script>
 		
 	<!-- JS Customization -->
-	<script src="/resources/static/user/assets/js/footer.js"></script>
+	<script src="/resources/static/user/js/footer.js"></script>
 
 
 	<!-- JS Plugins Init. -->
@@ -392,6 +392,6 @@
       $("ul.list-unstyled.mb-0 li").eq(1).children().first().addClass("active").addClass("g-color-primary--parent-active").addClass("g-bg-gray-light-v5--active");
     });
   </script>
-  <script src="/resources/static/user/assets/js/page-purchased-1.js"></script>
+  <script src="/resources/static/user/js/page-purchased-1.js"></script>
 </body>
 </html>

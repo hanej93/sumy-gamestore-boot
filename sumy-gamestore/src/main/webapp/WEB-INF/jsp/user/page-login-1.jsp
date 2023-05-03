@@ -219,8 +219,8 @@ main{
 	<script src="/resources/static/assets/js/components/hs.go-to.js"></script>
 
 	<!-- JS Customization -->
-	<script src="/resources/static/user/assets/js/page-login-1.js"></script>
-	<script src="/resources/static/user/assets/js/footer.js"></script>
+	<script src="/resources/static/user/js/page-login-1.js"></script>
+	<script src="/resources/static/user/js/footer.js"></script>
 
 	<!-- 카카오 로그인 api 소스 첨부 -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>

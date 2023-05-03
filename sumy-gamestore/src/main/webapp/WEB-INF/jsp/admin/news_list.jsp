@@ -337,7 +337,7 @@
         
       });
     </script>
-    <script src="/resources/static/etc/admin-news-list.js"></script>
+    <script src="/resources/static/admin/js/admin-news-list.js"></script>
 
 </body>
 
