@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class QuestionList {
+
 	private int questionId;
 	private int userId;
 	private String questionTitle;
@@ -22,4 +23,5 @@ public class QuestionList {
 	private String questionImage1;
 	private String questionImage2;
 	private String questionImage3;
+
 }

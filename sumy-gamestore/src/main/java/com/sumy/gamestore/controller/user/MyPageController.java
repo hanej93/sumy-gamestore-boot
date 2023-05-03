@@ -1,4 +1,4 @@
-package com.sumy.gamestore.controller;
+package com.sumy.gamestore.controller.user;
 
 import java.io.File;
 import java.io.IOException;

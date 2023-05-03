@@ -1,5 +1,6 @@
 package com.sumy.gamestore.controller.main;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,10 @@ import com.sumy.gamestore.config.auth.PrincipalDetail;
 import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.service.NewsListService;
 
+@RequiredArgsConstructor
 @Controller
 public class NewsController {
 	
-
-	@Autowired
 	NewsListService newsListService;
 	
 	// 뉴스 리스트 페이지
@@ -41,13 +41,6 @@ public class NewsController {
 		model.addAttribute("paging", vo);
 		model.addAttribute("viewAll", newsListService.한페이지뉴스리스트(vo));
 		
-		//model.addAttribute("gameInfo", gameInfoService.게임검색(gameId));
-		//model.addAttribute("reviewList", reviewListService.리뷰검색_게임아이디(gameId, vo));
-		
-//			if(principal != null) {
-//				// 로그인한 아이디로 리뷰조회 갯수 -> 0이면 리뷰 작성 가능!
-//				model.addAttribute("userReviewCnt", reviewListService.유저아이디개수_이메일(principal.getUsername(), gameId));
-//			}
 		return "user/page-news-list";
 	}
 	
@@ -56,9 +49,7 @@ public class NewsController {
 	public String showSingleProduct(@PathVariable int newsId, Model model) {
 		
 		model.addAttribute("news", newsListService.뉴스검색(newsId));
-		
-		System.out.println(newsListService.뉴스검색(newsId));
-		
+
 		return "user/page-news-detail";
 	}
 	

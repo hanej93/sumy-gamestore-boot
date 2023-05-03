@@ -1,38 +1,38 @@
 package com.sumy.gamestore.vo;
 
 
-import java.util.List;
-
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class FilterPagingVO{
-	
+public class CataloguePagingAndFilterVO {
+
+	// 현재페이지, 시작페이지, 끝페이지, 게시글 총 갯수, 페이지당 글 갯수, 마지막페이지, SQL쿼리에 쓸 start, end
+	private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
+	private static final int PAGE_COUNT = 5;
+
 	private int lowPriceFilter;
 	private int highPriceFilter;
 	private int starFilter;
 	private String discountFilter = "";
 	private List<Integer> categoryListFilter;
-	
-	// 현재페이지, 시작페이지, 끝페이지, 게시글 총 갯수, 페이지당 글 갯수, 마지막페이지, SQL쿼리에 쓸 start, end
-	private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
-	private int cntPage = 5;
-	
+
 	// keyword
 	private String keyword = "";
 	private String orderOpt = "";
 	
-	public FilterPagingVO() {
+	public CataloguePagingAndFilterVO() {
 	}
 	
 	
-	public FilterPagingVO(int total, int nowPage, int cntPerPage, String keyword, String orderOpt
+	public CataloguePagingAndFilterVO(int total, int nowPage, int cntPerPage, String keyword, String orderOpt
 			, int lowPriceFilter, int highPriceFilter, int starFilter, String discountFilter, List<Integer> categoryListFilter) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
 		calcLastPage(getTotal(), getCntPerPage());
-		calcStartEndPage(getNowPage(), cntPage);
+		calcStartEndPage(getNowPage(), PAGE_COUNT);
 		calcStartEnd(getNowPage(), getCntPerPage());
 		setKeyword(keyword);
 		setOrderOpt(orderOpt);
@@ -43,22 +43,22 @@ public class FilterPagingVO{
 		setCategoryListFilter(categoryListFilter);
 	}
 	
-	public FilterPagingVO(int total, int nowPage, int cntPerPage, String keyword) {
+	public CataloguePagingAndFilterVO(int total, int nowPage, int cntPerPage, String keyword) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
 		calcLastPage(getTotal(), getCntPerPage());
-		calcStartEndPage(getNowPage(), cntPage);
+		calcStartEndPage(getNowPage(), PAGE_COUNT);
 		calcStartEnd(getNowPage(), getCntPerPage());
 		setKeyword(keyword);
 	}
 	
-	public FilterPagingVO(int total, int nowPage, int cntPerPage) {
+	public CataloguePagingAndFilterVO(int total, int nowPage, int cntPerPage) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
 		calcLastPage(getTotal(), getCntPerPage());
-		calcStartEndPage(getNowPage(), cntPage);
+		calcStartEndPage(getNowPage(), PAGE_COUNT);
 		calcStartEnd(getNowPage(), getCntPerPage());
 	}
 	

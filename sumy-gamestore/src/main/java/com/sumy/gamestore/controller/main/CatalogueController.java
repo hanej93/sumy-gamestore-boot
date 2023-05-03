@@ -6,17 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sumy.gamestore.vo.FilterPagingVO;
-import com.sumy.gamestore.service.GameInfoServiceTest;
+import com.sumy.gamestore.vo.CataloguePagingAndFilterVO;
+import com.sumy.gamestore.service.CatalogueService;
 
 @Controller
 public class CatalogueController {
 	
 	@Autowired
-	GameInfoServiceTest gameInfoService;
+	CatalogueService gameInfoService;
 	
 	@GetMapping("/catalogue")
-	public String showGame(FilterPagingVO vo, Model model
+	public String showGame(CataloguePagingAndFilterVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
@@ -30,7 +30,7 @@ public class CatalogueController {
 			cntPerPage = "9";
 		}
 		
-		vo = new FilterPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), vo.getKeyword(),
+		vo = new CataloguePagingAndFilterVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), vo.getKeyword(),
 				vo.getOrderOpt(), vo.getLowPriceFilter(), vo.getHighPriceFilter(), vo.getStarFilter(), 
 				vo.getDiscountFilter() ,vo.getCategoryListFilter());
 		

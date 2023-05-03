@@ -1,4 +1,4 @@
-package com.sumy.gamestore.controller.main;
+package com.sumy.gamestore.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

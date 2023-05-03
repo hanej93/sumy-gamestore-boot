@@ -1,5 +1,6 @@
 package com.sumy.gamestore.controller.main;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,23 +17,15 @@ import com.sumy.gamestore.service.PurchasedService;
 import com.sumy.gamestore.service.ReviewListService;
 import com.sumy.gamestore.service.WishListService;
 
+@RequiredArgsConstructor
 @Controller
 public class SingleProductController {
 	
-	
-	@Autowired
-	GameInfoService gameInfoService;
-	
-	@Autowired
-	ReviewListService reviewListService;
-	
-	@Autowired
-	WishListService wishListService;
-	
-	@Autowired
-	PurchasedService purchasedService;
-	
-	
+	private final GameInfoService gameInfoService;
+	private final ReviewListService reviewListService;
+	private final WishListService wishListService;
+	private final PurchasedService purchasedService;
+
 	@GetMapping("/sumy/single-product/{gameId}")
 	public String showSingleProduct(@PathVariable int gameId, Model model, Authentication authentication) {
 		

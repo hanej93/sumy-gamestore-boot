@@ -1,8 +1,9 @@
-package com.sumy.gamestore.controller.main.api;
+package com.sumy.gamestore.controller.user.api;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -22,11 +23,11 @@ import com.sumy.gamestore.model.ReviewList;
 import com.sumy.gamestore.model.WishlistGame;
 import com.sumy.gamestore.service.WishListService;
 
+@RequiredArgsConstructor
 @RestController
 public class WishlistApiController {
-	
-	@Autowired
-	WishListService wishListService;
+
+	private final WishListService wishListService;
 	
 	@PostMapping("/user/wishlist")
 	public int insertWishlist(@RequestBody int gameId, Authentication authentication){

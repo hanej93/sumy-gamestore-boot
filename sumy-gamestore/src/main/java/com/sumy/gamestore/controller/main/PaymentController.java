@@ -1,4 +1,4 @@
-package com.sumy.gamestore.controller;
+package com.sumy.gamestore.controller.main;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

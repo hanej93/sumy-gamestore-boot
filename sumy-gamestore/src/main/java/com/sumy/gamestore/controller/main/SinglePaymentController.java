@@ -1,4 +1,4 @@
-package com.sumy.gamestore.controller;
+package com.sumy.gamestore.controller.main;
 
 import com.sumy.gamestore.model.GameInfo;
 import com.sumy.gamestore.service.SinglePaymentService;

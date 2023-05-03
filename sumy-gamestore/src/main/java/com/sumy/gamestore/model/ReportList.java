@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ReportList {
+
 	private int reportId;
 	private int reportFromUserId;
 	private int reviewId;

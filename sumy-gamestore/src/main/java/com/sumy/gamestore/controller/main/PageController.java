@@ -1,15 +1,13 @@
-package com.sumy.gamestore.controller;
+package com.sumy.gamestore.controller.main;
 
 import com.sumy.gamestore.service.JoinedUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RequiredArgsConstructor
 @Controller
-//@RequestMapping("/sumy")
-public class TestController2 {
+public class PageController {
 	
 	private final JoinedUserService joinedUserService;
 

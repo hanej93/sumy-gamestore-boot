@@ -2,6 +2,7 @@ package com.sumy.gamestore.controller.main.api;
 
 import java.time.LocalDateTime;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,14 +17,12 @@ import com.sumy.gamestore.model.ReviewList;
 import com.sumy.gamestore.service.ReportListService;
 import com.sumy.gamestore.service.ReviewListService;
 
+@RequiredArgsConstructor
 @RestController
 public class SingleProductApiController {
 
-	@Autowired
-	ReviewListService reviewListService; 
-	
-	@Autowired
-	ReportListService reportListService;
+	private final ReviewListService reviewListService;
+	private final ReportListService reportListService;
 	
 	@PutMapping("/sumy/game/review")
 	public ResponseDto<Integer> updateReview(@RequestBody ReviewList reviewList){
