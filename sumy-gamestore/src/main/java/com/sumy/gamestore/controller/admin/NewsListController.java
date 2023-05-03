@@ -1,5 +1,6 @@
 package com.sumy.gamestore.controller.admin;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,15 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sumy.gamestore.dto.PagingVO;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.service.NewsListService;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class NewsListController {
 	
-	@Autowired
-	NewsListService newsListService;
+	private final NewsListService newsListService;
 	
 	@GetMapping("/news/list")
 	public String showNews(PagingVO vo, Model model
@@ -41,13 +42,11 @@ public class NewsListController {
 
 	@GetMapping("/news/add")
 	public String addNews() {
-		
 		return "admin/news_add";
 	}
 	
 	@GetMapping("/news/update/{newsId}")
 	public String updateNews(@PathVariable int newsId, Model model) {
-		
 		model.addAttribute("newsList", newsListService.뉴스검색(newsId));
 		
 		return "admin/news_update";

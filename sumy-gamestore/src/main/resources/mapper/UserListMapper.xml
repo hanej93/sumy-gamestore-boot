@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.UserInfoMapper">
- 	<select id="selectUserInfo" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.model.UserInfo">
+ 	<select id="selectUserInfo" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.model.UserInfo">
  		select * from user_info
  		
  		<trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -26,7 +26,7 @@
 
  	</select>
  	
- 	<select id="countUserList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
+ 	<select id="countUserList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
  		select count(*) from user_info 
  		<trim prefix="WHERE" prefixOverrides="AND|OR">
 

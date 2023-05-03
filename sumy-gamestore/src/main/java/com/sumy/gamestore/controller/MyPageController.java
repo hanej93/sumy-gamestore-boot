@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,23 +31,15 @@ import com.sumy.gamestore.service.MyPageService;
 import com.sumy.gamestore.service.UpdateUserService;
 import com.sumy.gamestore.service.UserInfoService;
 
+@RequiredArgsConstructor
 @Controller
 public class MyPageController {
 
-	@Autowired
-	UserInfoService userInfoService;
-	
-	@Autowired
-	MyPageService myPageService;
-
-	@Autowired
-	UpdateUserService updateUserService;
-
-	@Autowired
-	BCryptPasswordEncoder bcryptPasswordEncoder;
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	private final UserInfoService userInfoService;
+	private final MyPageService myPageService;
+	private final UpdateUserService updateUserService;
+	private final BCryptPasswordEncoder bcryptPasswordEncoder;
+	private final AuthenticationManager authenticationManager;
 
 	// 회원 정보 수정 화면
 	@GetMapping("/user/login-security")

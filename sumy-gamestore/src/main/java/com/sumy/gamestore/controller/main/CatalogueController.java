@@ -1,16 +1,12 @@
 package com.sumy.gamestore.controller.main;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sumy.gamestore.dto.FilterPagingVO;
-import com.sumy.gamestore.dto.PagingVO;
-import com.sumy.gamestore.service.GameInfoService;
+import com.sumy.gamestore.vo.FilterPagingVO;
 import com.sumy.gamestore.service.GameInfoServiceTest;
 
 @Controller

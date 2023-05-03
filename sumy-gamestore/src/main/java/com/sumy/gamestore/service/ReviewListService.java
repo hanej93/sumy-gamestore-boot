@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sumy.gamestore.dto.PagingVO;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.dto.ReviewUserDto;
 import com.sumy.gamestore.mapper.ReviewListMapper;
 import com.sumy.gamestore.mapper.UserInfoMapper;
 import com.sumy.gamestore.model.ReviewList;
-import com.sumy.gamestore.model.UserInfo;
 
 @Service
 public class ReviewListService {

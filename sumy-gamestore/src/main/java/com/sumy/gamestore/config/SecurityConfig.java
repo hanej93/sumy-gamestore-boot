@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.sumy.gamestore.config.auth.PrincipalDetailService;
 
 @Configuration
-@EnableWebSecurity // 시큐리티를 활성화시키겠다!!
+@EnableWebSecurity // 시큐리티를 활성화시키겠다
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // 시큐리티기능 중 부가적인 메소드를 활성시키는 것
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 

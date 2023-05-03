@@ -2,6 +2,7 @@ package com.sumy.gamestore.controller;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +14,13 @@ import com.sumy.gamestore.model.NewsList;
 import com.sumy.gamestore.service.ShowGameService;
 import com.sumy.gamestore.service.ShowNewsService;
 
+@RequiredArgsConstructor
 @Controller
 public class MainPageController {
 	
-	@Autowired
-	ShowGameService showGameService;
-	
-	@Autowired
-	ShowNewsService showNewsService;
+
+	private final ShowGameService showGameService;
+	private final ShowNewsService showNewsService;
 	
 	//메인 페이지
 	@GetMapping(value = {"/home-page", "/", ""})
@@ -53,13 +53,8 @@ public class MainPageController {
 	 	
 		List<GameInfo> RecommendGameList = showGameService.selectRecommendGame();
 		model.addAttribute("RecommendGameList", RecommendGameList);
-		
-		
-		
-		
-		
+
 	     return "user/home-page-1";
-//		return "index";
 	}
 	
 

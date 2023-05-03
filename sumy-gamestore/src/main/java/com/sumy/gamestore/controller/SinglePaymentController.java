@@ -2,6 +2,7 @@ package com.sumy.gamestore.controller;
 
 import com.sumy.gamestore.model.GameInfo;
 import com.sumy.gamestore.service.SinglePaymentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@RequiredArgsConstructor
 @Controller
 public class SinglePaymentController {
 
-	@Autowired
-	SinglePaymentService singlePaymentService;
+	private final SinglePaymentService singlePaymentService;
 
 	// 결제하기
 	@RequestMapping("/user/kakaoPayApi2")

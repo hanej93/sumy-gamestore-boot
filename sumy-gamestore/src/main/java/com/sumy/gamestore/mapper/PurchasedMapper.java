@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.sumy.gamestore.dto.PagingVO;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.dto.PurchasedGameInfoDto;
 import com.sumy.gamestore.model.PurchasedGameList;
 

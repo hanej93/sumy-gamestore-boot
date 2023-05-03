@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sumy.gamestore.config.auth.PrincipalDetail;
-import com.sumy.gamestore.dto.PagingVO;
-import com.sumy.gamestore.service.GameInfoService;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.service.NewsListService;
-import com.sumy.gamestore.service.ReviewListService;
 
 @Controller
 public class NewsController {

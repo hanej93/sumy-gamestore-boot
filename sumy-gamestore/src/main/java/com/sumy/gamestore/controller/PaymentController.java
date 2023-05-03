@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,11 +40,12 @@ import com.sumy.gamestore.service.PaymentService;
 import com.sumy.gamestore.service.UpdateUserService;
 import com.sumy.gamestore.service.WishListService;
 
+@RequiredArgsConstructor
 @Controller
 public class PaymentController {
 	
-	@Autowired
-	PaymentService paymentService;
+
+	private final PaymentService paymentService;
 
 	// 결제하기
 	@RequestMapping("/user/kakaoPayApi")

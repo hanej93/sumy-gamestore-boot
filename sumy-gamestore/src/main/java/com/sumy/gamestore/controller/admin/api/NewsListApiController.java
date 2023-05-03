@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,23 +24,22 @@ import com.sumy.gamestore.model.GameInfo;
 import com.sumy.gamestore.model.NewsList;
 import com.sumy.gamestore.service.NewsListService;
 
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 public class NewsListApiController {
-	
-	
-	@Autowired
-	private NewsListService newsListService;
+
+	private final NewsListService newsListService;
 	
 	@PostMapping("/admin/news/add")
 	public ResponseDto<Integer> addNews(
 			@RequestPart(value = "newsList")NewsList newsList
 			,@RequestPart(value = "file") MultipartFile file) {
-		System.out.println(newsList);
-		System.out.println(file.getOriginalFilename());
+		log.info(file.getOriginalFilename());
 		
 		// 파일 있는지 확인
 		if (file == null || file.isEmpty()) {
-			System.out.println("파일이 없음");
+			log.info("파일이 없음");
 		}
 
 		// 현재 날짜 조회 - ex) 2021-07-07
@@ -85,9 +86,6 @@ public class NewsListApiController {
 								   
 								   
 		newsListService.뉴스추가(addNews);
-		
-		System.out.println("출력확인!!");
-		System.out.println(HttpStatus.OK.value());
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
@@ -103,7 +101,7 @@ public class NewsListApiController {
 				
 		// 파일 있는지 확인
 		if (file == null || file.isEmpty()) {
-			System.out.println("파일이 없음");
+			log.info("파일이 없음");
 		}
 		
 		// 현재 날짜 조회 - ex) 2021-07-07

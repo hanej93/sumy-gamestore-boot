@@ -1,5 +1,18 @@
 package com.sumy.gamestore.controller.admin.api;
 
+import com.sumy.gamestore.dto.ResponseDto;
+import com.sumy.gamestore.model.GameInfo;
+import com.sumy.gamestore.model.PurchasedGameList;
+import com.sumy.gamestore.model.ReviewList;
+import com.sumy.gamestore.model.WishlistGame;
+import com.sumy.gamestore.service.GameInfoService;
+import com.sumy.gamestore.service.ReviewListService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -8,53 +21,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.sumy.gamestore.dto.ResponseDto;
-import com.sumy.gamestore.model.GameInfo;
-import com.sumy.gamestore.model.PurchasedGameList;
-import com.sumy.gamestore.model.ReviewList;
-import com.sumy.gamestore.model.WishlistGame;
-import com.sumy.gamestore.service.GameInfoService;
-import com.sumy.gamestore.service.ReviewListService;
-
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class GameInfoApiController {
 
-	@Autowired
-	private GameInfoService gameInfoService;
-
-	@Autowired
-	private ReviewListService reviewListService;
+	private final GameInfoService gameInfoService;
+	private final ReviewListService reviewListService;
 	
 	@PostMapping("/admin/game/add")
 	public ResponseDto<Integer> addGame(@RequestPart(value = "gameInfo") GameInfo gameInfo
 			, @RequestPart(value = "file", required = false) MultipartFile file
 			, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
-		System.out.println("===========================================");
-//		System.out.println("썸머노트!!!");
-//		System.out.println(gameInfo.getGameMainText());
-		
-		
-		System.out.println("===========================================");
-		System.out.println(file.getOriginalFilename());
-		System.out.println("-------------------------------------------");
+		log.info("===========================================");
+		log.info("===========================================");
+		log.info(file.getOriginalFilename());
+		log.info("-------------------------------------------");
 		for (MultipartFile multipartFile : files) {
-			System.out.println(multipartFile.getOriginalFilename());
+			log.info(multipartFile.getOriginalFilename());
 		}
-		System.out.println("===========================================");
+		log.info("===========================================");
 		
 		// 파일 있는지 확인
 		if (file == null || file.isEmpty()) {
-			System.out.println("파일이 없음");
+			log.info("파일이 없음");
 		}
 		
 		// 현재 날짜 조회 - ex) 2021-07-07
@@ -84,7 +74,6 @@ public class GameInfoApiController {
 			file.transferTo(dest);
 
 		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -96,7 +85,7 @@ public class GameInfoApiController {
 		}
 		int index = 0;
 		for (MultipartFile previewImg : files) {
-			System.out.println("단일파일(리스트)" + previewImg.getOriginalFilename());
+			log.info("단일파일(리스트)" + previewImg.getOriginalFilename());
 
 			String previewImgPrefix = previewImg.getOriginalFilename().substring(
 					previewImg.getOriginalFilename().lastIndexOf(".") + 1, previewImg.getOriginalFilename().length());
@@ -118,12 +107,12 @@ public class GameInfoApiController {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("------------------------------------");
-		System.out.println(previewImgList.get(0));
-		System.out.println(previewImgList.get(1));
-		System.out.println(previewImgList.get(2));
-		System.out.println(previewImgList.get(3));
-		System.out.println("------------------------------------");
+		log.info("------------------------------------");
+		log.info(previewImgList.get(0));
+		log.info(previewImgList.get(1));
+		log.info(previewImgList.get(2));
+		log.info(previewImgList.get(3));
+		log.info("------------------------------------");
 		
 		GameInfo addGame =
 		GameInfo.builder() 
@@ -165,24 +154,18 @@ public class GameInfoApiController {
 		// 아이디로 데이터를 가져옴
 		GameInfo oldGame = gameInfoService.게임검색(gameInfo.getGameId());
 		// 수정할 것들만 반영해서 수정
-		
-		
-		System.out.println("===========================================");
-//		System.out.println("썸머노트!!!");
-//		System.out.println(gameInfo.getGameMainText());
-		
-		
-		System.out.println("===========================================");
-		System.out.println(file.getOriginalFilename());
-		System.out.println("-------------------------------------------");
+		log.info("===========================================");
+		log.info("===========================================");
+		log.info(file.getOriginalFilename());
+		log.info("-------------------------------------------");
 		for (MultipartFile multipartFile : files) {
-			System.out.println(multipartFile.getOriginalFilename());
+			log.info(multipartFile.getOriginalFilename());
 		}
-		System.out.println("===========================================");
+		log.info("===========================================");
 		
 		// 파일 있는지 확인
 		if (file == null || file.isEmpty()) {
-			System.out.println("파일이 없음");
+			log.info("파일이 없음");
 		}
 
 		// 현재 날짜 조회 - ex) 2021-07-07
@@ -224,7 +207,7 @@ public class GameInfoApiController {
 		}
 		int index = 0;
 		for (MultipartFile previewImg : files) {
-			System.out.println("단일파일(리스트)" + previewImg.getOriginalFilename());
+			log.info("단일파일(리스트)" + previewImg.getOriginalFilename());
 
 			String previewImgPrefix = previewImg.getOriginalFilename().substring(
 					previewImg.getOriginalFilename().lastIndexOf(".") + 1, previewImg.getOriginalFilename().length());
@@ -246,12 +229,12 @@ public class GameInfoApiController {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("------------------------------------");
-		System.out.println(previewImgList.get(0));
-		System.out.println(previewImgList.get(1));
-		System.out.println(previewImgList.get(2));
-		System.out.println(previewImgList.get(3));
-		System.out.println("------------------------------------");
+		log.info("------------------------------------");
+		log.info(previewImgList.get(0));
+		log.info(previewImgList.get(1));
+		log.info(previewImgList.get(2));
+		log.info(previewImgList.get(3));
+		log.info("------------------------------------");
 		
 		GameInfo updateGame =
 		GameInfo.builder() 
@@ -289,7 +272,7 @@ public class GameInfoApiController {
 	public ResponseDto<Integer> deleteGame(@RequestBody GameInfo gameInfo, ReviewList reviewList,
 		WishlistGame wishlistGame, PurchasedGameList purchasedGameList) {
 		
-		System.out.println(gameInfo.getGameId());
+		log.info("{}", gameInfo.getGameId());
 		gameInfoService.게임삭제(gameInfo.getGameId());
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);

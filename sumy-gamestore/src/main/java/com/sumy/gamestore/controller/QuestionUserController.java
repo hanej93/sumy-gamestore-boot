@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,20 +16,19 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sumy.gamestore.model.QuestionList;
 import com.sumy.gamestore.service.QuestionUserService;
 
+@RequiredArgsConstructor
 @Controller
 public class QuestionUserController {
 
-	@Autowired
-	QuestionUserService questionUserService;
+	private final QuestionUserService questionUserService;
 
 	// 메인 페이지
 	@ResponseBody
 	@PostMapping("/user/questionModal")
 	public String test1(QuestionList questionList) {
 		System.out.println("문의하기 데이터 : " + questionList);
-		int row = questionUserService.questionInsert(questionList);
+		int row = questionUserService.insertQuestion(questionList);
 		return "문의하기 성공";
-		// 문의 하기 설정
 	}
 
 	// 문의하기 이미지 등록
@@ -70,7 +68,6 @@ public class QuestionUserController {
 			file.transferTo(dest);
 
 		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resourcePathname;

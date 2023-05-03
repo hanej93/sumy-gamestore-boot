@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.GameInfoMapperTest">
- 	<select id="selectGameList" parameterType="com.sumy.gamestore.dto.FilterPagingVO" resultType="com.sumy.gamestore.model.GameInfo">
+ 	<select id="selectGameList" parameterType="com.sumy.gamestore.vo.FilterPagingVO" resultType="com.sumy.gamestore.model.GameInfo">
  		select 
  		
  		g.game_id,
@@ -107,7 +107,7 @@
 		limit #{start}, #{cntPerPage}
  	</select>
  	
- 	<select id="countGameList" parameterType="com.sumy.gamestore.dto.FilterPagingVO" resultType="int">
+ 	<select id="countGameList" parameterType="com.sumy.gamestore.vo.FilterPagingVO" resultType="int">
  		select count(*)
  		from(
  		select count(*)

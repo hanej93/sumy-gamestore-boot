@@ -1,4 +1,4 @@
-package com.sumy.gamestore.dto;
+package com.sumy.gamestore.vo;
 
 import lombok.Data;
 

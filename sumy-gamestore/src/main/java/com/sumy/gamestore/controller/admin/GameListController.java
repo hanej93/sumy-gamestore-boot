@@ -1,5 +1,6 @@
 package com.sumy.gamestore.controller.admin;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,21 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sumy.gamestore.dto.FilterPagingVO;
-import com.sumy.gamestore.dto.PagingVO;
-import com.sumy.gamestore.model.GameInfo;
+import com.sumy.gamestore.vo.FilterPagingVO;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.service.GameInfoService;
 import com.sumy.gamestore.service.GameInfoServiceTest;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class GameListController {
 	
-	@Autowired
-	GameInfoService gameInfoService;
-	
-	@Autowired
-	GameInfoServiceTest gameInfoService1;
+	private final GameInfoService gameInfoService;
+	private final GameInfoServiceTest gameInfoService1;
 	
 	@GetMapping("/game/list/test")
 	public String testGame(FilterPagingVO vo, Model model

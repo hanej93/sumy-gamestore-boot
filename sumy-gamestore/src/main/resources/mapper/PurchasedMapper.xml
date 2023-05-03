@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.PurchasedMapper">
- 	<select id="selectPurchasedGameList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.dto.PurchasedGameInfoDto">
+ 	<select id="selectPurchasedGameList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.dto.PurchasedGameInfoDto">
  		select
  		p.purchased_game_id,
  		p.game_id,
@@ -64,7 +64,7 @@
 
  	</select>
  	
- 	<select id="countPurchasedGameList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
+ 	<select id="countPurchasedGameList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
  		select
 		count(*)		 
 		 from

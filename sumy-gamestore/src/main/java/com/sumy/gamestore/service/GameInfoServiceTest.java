@@ -2,15 +2,12 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sumy.gamestore.dto.CategoryCountDto;
-import com.sumy.gamestore.dto.FilterPagingVO;
-import com.sumy.gamestore.dto.PagingVO;
-import com.sumy.gamestore.mapper.GameInfoMapper;
+import com.sumy.gamestore.vo.FilterPagingVO;
 import com.sumy.gamestore.mapper.GameInfoMapperTest;
 import com.sumy.gamestore.model.GameInfo;
 

@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sumy.gamestore.config.auth.PrincipalDetail;
-import com.sumy.gamestore.dto.PagingVO;
 import com.sumy.gamestore.dto.WishlistGameInfoDto;
-import com.sumy.gamestore.mapper.GameInfoMapper;
 import com.sumy.gamestore.mapper.PaymentMapper;
 import com.sumy.gamestore.mapper.PurchasedMapper;
 import com.sumy.gamestore.model.GameInfo;

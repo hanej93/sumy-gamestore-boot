@@ -1,5 +1,6 @@
 package com.sumy.gamestore.controller.admin;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,15 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sumy.gamestore.dto.PagingVO;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.service.ReportListService;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class ReportListController {
 	
-	@Autowired
-	ReportListService reportListService;
+	private final ReportListService reportListService;
 	
 	@GetMapping("/report/list")
 	public String showReport(PagingVO vo, Model model

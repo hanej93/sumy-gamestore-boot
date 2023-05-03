@@ -10,8 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.sumy.gamestore.dto.CategoryCountDto;
-import com.sumy.gamestore.dto.FilterPagingVO;
-import com.sumy.gamestore.dto.PagingVO;
+import com.sumy.gamestore.vo.FilterPagingVO;
 import com.sumy.gamestore.model.GameInfo;
 
 

@@ -1,5 +1,6 @@
 package com.sumy.gamestore.controller.admin;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,16 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sumy.gamestore.dto.PagingVO;
-import com.sumy.gamestore.service.ReportListService;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.service.UserInfoService;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class UserInfoController {
-	
-	@Autowired
-	private UserInfoService userInfoService;
+
+	private final UserInfoService userInfoService;
 	
 	@GetMapping("/user/list")
 	public String showUser(PagingVO vo, Model model
@@ -38,11 +38,5 @@ public class UserInfoController {
 		
 		return "admin/user_list";
 	}
-	
-//	@GetMapping("/news/update")
-//	public String updateNews() {
-//		
-//		return "admin/news_update";
-//	}
-	
+
 }

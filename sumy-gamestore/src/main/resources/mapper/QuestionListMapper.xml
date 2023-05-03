@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.QuestionListMapper">
- 	<select id="selectQuestionList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.dto.QuestionUserDto">
+ 	<select id="selectQuestionList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.dto.QuestionUserDto">
  		<!-- select * from question_list -->
  		select * 
 		from question_list as q 
@@ -34,7 +34,7 @@
 
  	</select>
  	
- 	<select id="countQuestionList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
+ 	<select id="countQuestionList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
  		<!-- select count(*) from question_list -->
  		select count(*) 
 		from question_list as q 

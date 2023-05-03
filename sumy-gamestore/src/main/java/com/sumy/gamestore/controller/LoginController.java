@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,24 +43,15 @@ import com.sumy.gamestore.service.UserInfoService;
 
 @Controller
 //@RequestMapping("/sumy")
+@RequiredArgsConstructor
 public class LoginController {
-	@Autowired
-	BCryptPasswordEncoder bcryptPasswordEncoder;
 
-	@Autowired
-	JoinedUserService joinedUserService;
-	
-	@Autowired
-	UserInfoService userInfoService;
-
-	@Autowired
-	NaverLoginVO naverLoginVO;
-	
-	@Autowired
-	AuthenticationManager authenticationManager;
-
-	@Autowired
-	LoginUserService loginUserService;
+	private final BCryptPasswordEncoder bcryptPasswordEncoder;
+	private final JoinedUserService joinedUserService;
+	private final UserInfoService userInfoService;
+	private final NaverLoginVO naverLoginVO;
+	private final AuthenticationManager authenticationManager;
+	private final LoginUserService loginUserService;
 
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/auth/naver/callback", method = { RequestMethod.GET, RequestMethod.POST })
@@ -107,9 +99,7 @@ public class LoginController {
 		UserInfo userInfo = userInfoService.유저검색_이메일(userEmail);
 		
 		if(userInfo == null) {
-			
-			
-			UserInfo joinUser 
+			UserInfo joinUser
 				= UserInfo.builder()
 						  .userId(0)
 						  .userEmail(userEmail)
@@ -226,23 +216,13 @@ public class LoginController {
 	// 로그인 완료 화면
 	@PostMapping("/sumy/loginSuccess")
 	public String test2(UserInfo userInfo) {
-		System.out.println(userInfo);
-//		userInfo.setUserJoinedDate(LocalDate.now());// 가입날짜 세팅
-//		userInfo.setUserAuthorityRate("ROLE_USER");// 사용자 계정 세팅
-//		int total = joinedUserService.addUser(userInfo);
 		loginUserService.selectUser(userInfo);
-
-//		if(!loginUserService.selectUser(userInfo)) {
-//			System.out.println("로그인 실패");
-//		}
-//		System.out.println("로그인 성공");
 		return "user/home-page-1";
 	}
 
 	// 비밀번호 찾기 화면
 	@GetMapping("/sumy/password-recovery")
 	public String test12() {
-
 		return "user/page-password-recovery-1";
 	}
 

@@ -1,5 +1,7 @@
 package com.sumy.gamestore.controller.admin.api;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,18 +18,17 @@ import com.sumy.gamestore.model.QuestionList;
 import com.sumy.gamestore.service.QuestionListService;
 import com.sumy.gamestore.service.QuestionMailSendService;
 
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 public class QuestionListApiController {
 
-	@Autowired
-	QuestionListService questionListService;
-
-	@Autowired
-	QuestionMailSendService questionMailSendService;
+	private final QuestionListService questionListService;
+	private final QuestionMailSendService questionMailSendService;
 	
 	@PutMapping("/admin/question/answer")
 	public ResponseDto<Integer> updateQuestionAnswer(@RequestBody QuestionList questionList) {
-		System.out.println("questionAnswer : " + questionList.getQuestionAnswerYn());
+		log.info("questionAnswer : " + questionList.getQuestionAnswerYn());
 		
 		QuestionList resultQuestion = questionListService.문의검색(questionList.getQuestionId());
 		resultQuestion.setQuestionAnswerYn(questionList.getQuestionAnswerYn());
@@ -38,8 +39,8 @@ public class QuestionListApiController {
 	
 	@PutMapping("/admin/question/reader")
 	public ResponseDto<Integer> updateQuestionReader(@RequestBody QuestionList questionList) {
-		System.out.println("QuestionId : " + questionList.getQuestionId());
-		System.out.println("QuestionReadYn : " + questionList.getQuestionReadYn());
+		log.info("QuestionId : " + questionList.getQuestionId());
+		log.info("QuestionReadYn : " + questionList.getQuestionReadYn());
 		
 		QuestionList resultQuestion = questionListService.문의검색(questionList.getQuestionId());
 		resultQuestion.setQuestionReadYn(questionList.getQuestionReadYn());
@@ -50,8 +51,8 @@ public class QuestionListApiController {
 	
 	@PostMapping("/admin/question/email")
 	public ResponseDto<Integer> updateQuestionReader(@RequestBody QuestionUserDto questionUserDto) {
-		System.out.println("Email : " + questionUserDto.getUserEmail());
-		System.out.println("Text : " + questionUserDto.getQuestionText());
+		log.info("Email : " + questionUserDto.getUserEmail());
+		log.info("Text : " + questionUserDto.getQuestionText());
 		questionMailSendService.sendMail(questionUserDto.getUserEmail(), questionUserDto.getQuestionText());
 		
 		QuestionList answerQuestion = questionListService.문의검색(questionUserDto.getQuestionId());
@@ -78,7 +79,7 @@ public class QuestionListApiController {
 //		resultUser.setUserWarningCount(userInfo.getUserWarningCount());
 //		resultUser.setUserMemo(userInfo.getUserMemo());
 //		
-//		System.out.println(resultUser);
+//		log.info(resultUser);
 //
 //		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 //	}
@@ -87,14 +88,11 @@ public class QuestionListApiController {
 	
 	@PutMapping("/admin/question/update")
 	public ResponseDto<Integer> updateQuestion(@RequestBody QuestionList questionList) {
-		System.out.println("출력확인!!");
-		System.out.println(HttpStatus.OK.value());
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 
 	@DeleteMapping("/admin/question/list")
 	public ResponseDto<Integer> deletequestion(@RequestBody QuestionList questionList) {
-		System.out.println(questionList.getQuestionId());
 		int result = questionListService.문의삭제(questionList.getQuestionId());
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sumy.gamestore.dto.PagingVO;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.dto.QuestionUserDto;
 import com.sumy.gamestore.mapper.QuestionListMapper;
 import com.sumy.gamestore.model.QuestionList;
