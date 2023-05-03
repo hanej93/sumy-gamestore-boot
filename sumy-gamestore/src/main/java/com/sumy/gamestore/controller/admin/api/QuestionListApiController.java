@@ -59,7 +59,7 @@ public class QuestionListApiController {
 	}
 
 	@DeleteMapping("/admin/question/list")
-	public ResponseDto<Integer> deletequestion(@RequestBody QuestionList questionList) {
+	public ResponseDto<Integer> deleteQuestion(@RequestBody QuestionList questionList) {
 		int result = questionListService.delete(questionList.getQuestionId());
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
 	}

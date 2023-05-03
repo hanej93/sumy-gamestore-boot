@@ -44,3 +44,7 @@ logging:
     console: '%(%d{yyyy-MM-dd HH:mm:ss} [%thread] %30.30logger:%-4line) %-5level > %msg\n'
   level:
     root: info
+
+email:
+  username: kimsumy599@gmail.com
+  password: 1234567890Tt

@@ -15,14 +15,8 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MailSendService {
 
-	private final EmailCertification emailCertification;
-	private JavaMailSender mailSender;// mailSender 객체
+	private final JavaMailSender mailSender;// mailSender 객체
 	private int size = 0;
-
-	@PostConstruct
-	private void init() {
-	    mailSender = emailCertification.getJavaMailSender();
-	}
 
 	// 인증키 생성
 	private String getKey(int size) {
@@ -52,12 +46,15 @@ public class MailSendService {
 		// 인증메일 보내기
 		try {
 			MailUtils sendMail = new MailUtils(mailSender);
+			String mailContent = new StringBuffer()
+					.append("<h3>[Sumy Game Store 이메일 인증]</h3>")
+					.append("<p>인증번호 : </p>")
+					.append("<h1>" + authKey + "</h1>")
+					.append("<small style='color:red;'>! 3분 안에 입력해주세요.</small>")
+					.toString();
+
 			sendMail.setSubject("회원가입 이메일 인증");
-			sendMail.setText(new StringBuffer().append("<h3>[Sumy Game Store 이메일 인증]</h3>").append("<p>인증번호 : </p>")
-					.append("<h1>"+authKey+"</h1>").append("<small style='color:red;'>! 3분 안에 입력해주세요.</small>").toString());
-//					.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-//					.append("<a href='http://localhost:9080/member/signUpConfirm?email=").append("paro_85@naver.com")
-//					.append("&authKey=").append(authKey).append("' target='_blank'>이메일 인증 확인</a>").toString());
+			sendMail.setText(mailContent);
 			sendMail.setFrom("kimsumy599@gmail.com", "sumy");
 			sendMail.setTo(email);
 			sendMail.send();
@@ -69,11 +66,11 @@ public class MailSendService {
 		return authKey;
 	}
 
-	public boolean sendMail(String email, String mailContent, String mailTitle) {
+	public boolean sendMail(String email, String text, String subject) {
 		try {
 			MailUtils sendMail = new MailUtils(mailSender);
-			sendMail.setSubject(mailTitle);
-			sendMail.setText(new StringBuffer().append(mailContent).toString());
+			sendMail.setSubject(subject);
+			sendMail.setText(new StringBuffer().append(text).toString());
 			sendMail.setFrom("kimsumy599@gmail.com", "sumy");
 			sendMail.setTo(email);
 			sendMail.send();
