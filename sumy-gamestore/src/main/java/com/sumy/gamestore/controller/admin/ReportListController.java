@@ -21,7 +21,7 @@ public class ReportListController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		int total = reportListService.getTotalCount(vo);
+		int total = reportListService.getCountForPaging(vo);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";

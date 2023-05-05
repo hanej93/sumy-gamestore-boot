@@ -18,7 +18,7 @@ public class ReportListService {
 	private final ReportListMapper reportListMapper;
 	
 	// 총 신고 갯수 조회
-	public int getTotalCount(PagingVO vo) {
+	public int getCountForPaging(PagingVO vo) {
 		return reportListMapper.countReportList(vo);
 	}
 	

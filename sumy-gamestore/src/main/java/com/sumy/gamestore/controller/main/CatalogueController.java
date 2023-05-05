@@ -1,7 +1,6 @@
 package com.sumy.gamestore.controller.main;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,7 @@ public class CatalogueController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		int total = catalogueService.게임총개수(vo);
+		int total = catalogueService.getCountForPaging(vo);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "9";
@@ -36,12 +35,12 @@ public class CatalogueController {
 				vo.getDiscountFilter() ,vo.getCategoryListFilter());
 		
 		model.addAttribute("paging", vo);
-		model.addAttribute("viewAll", catalogueService.한페이지게임리스트(vo));
+		model.addAttribute("viewAll", catalogueService.findList(vo));
 		
 		//필터관련
-		model.addAttribute("countGameListAll", catalogueService.전체상품개수조회());
-		model.addAttribute("countGameListDiscount", catalogueService.할인상품개수조회());
-		model.addAttribute("categoryListGroupById", catalogueService.카테고리별개수조회());
+		model.addAttribute("countGameListAll", catalogueService.getTotalGameListCount());
+		model.addAttribute("countGameListDiscount", catalogueService.getDiscountGameListCount());
+		model.addAttribute("categoryListGroupById", catalogueService.findCategoryListWithCount());
 		
 		return "user/catalogue-page";
 	}

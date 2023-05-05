@@ -31,11 +31,9 @@ public interface PurchasedMapper {
 
 	// ================================================
 	
-	//@Select("select count(*) from purchased_game_list")
 	public int countPurchasedGameList(PagingVO vo);
 
-	//@Select("select * from purchased_game_list order by purchased_game_id desc limit #{start}, #{cntPage}")
-	public List<PurchasedGameList> selectPurchasedGameList(PagingVO vo);
+	public List<PurchasedGameInfoDto> selectPurchasedGameList(PagingVO vo);
 
 	
 }

@@ -15,13 +15,11 @@ public class CatalogueService {
 
 	private final CatalogueMapper catalogueMapper;
 	
-	// 총 게임 갯수 조회
-	public int 게임총개수(CataloguePagingAndFilterVO vo) {
+	public int getCountForPaging(CataloguePagingAndFilterVO vo) {
 		return catalogueMapper.countGameList(vo);
 	}
 	
-	// 한 페이지 게임 리스트 조회
-	public List<GameInfo> 한페이지게임리스트(CataloguePagingAndFilterVO vo){
+	public List<GameInfo> findList(CataloguePagingAndFilterVO vo){
 		return catalogueMapper.selectGameList(vo);
 	}
 
@@ -30,17 +28,17 @@ public class CatalogueService {
 	 * 필터 관련
  	 */
 	// 전체 상품 개수 조회
-	public int 전체상품개수조회() {
+	public int getTotalGameListCount() {
 		return catalogueMapper.countGameListAll();
 	}
 	
 	// 할인 상품 개수 조회
-	public int 할인상품개수조회() {
+	public int getDiscountGameListCount() {
 		return catalogueMapper.countGameListDiscount();
 	}
 	
 	// 카테고리별 개수 조회
-	public List<CategoryCountDto> 카테고리별개수조회(){
+	public List<CategoryCountDto> findCategoryListWithCount(){
 		return catalogueMapper.countCategoryListGroupById();
 	}
 	

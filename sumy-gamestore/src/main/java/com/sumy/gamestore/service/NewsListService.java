@@ -20,12 +20,10 @@ public class NewsListService {
 	private final NewsListMapper newsListMapper;
 	private final FileUploadService fileUploadService;
 
-	// 총 뉴스 갯수 조회
-	public int getTotalCount(PagingVO vo) {
+	public int getCountForPaging(PagingVO vo) {
 		return newsListMapper.countNewsList(vo);
 	}
 
-	// 한 페이지 뉴스 리스트 조회
 	public List<NewsList> findList(PagingVO vo){
 		return newsListMapper.selectNewsList(vo);
 	}
@@ -44,7 +42,6 @@ public class NewsListService {
 
 		NewsList addNews =
 				NewsList.builder()
-						.newsId(0)
 						.newsTitle(newsList.getNewsTitle())
 						.newsSubTitle(newsList.getNewsSubTitle())
 						.newsThumbImage(resourcePathname)
@@ -58,7 +55,6 @@ public class NewsListService {
 
 	@Transactional
 	public int update(NewsList newsList, MultipartFile file) {
-		// 아이디로 데이터를 가져옴
 		NewsList oldNews = findById(newsList.getNewsId());
 
 		String resourcePathname = null;

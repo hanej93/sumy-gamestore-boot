@@ -20,11 +20,11 @@ public class FileUploadService {
 		String uploadFilePath = "C:\\upload\\" + currentDate + "/";
 
 		// 파일 확장자 ex) jpg, png ..
-		String prefix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1,
+		String extention = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1,
 				file.getOriginalFilename().length());
 
 		// 랜덤아이디로 파일명 생성
-		String filename = UUID.randomUUID().toString() + "." + prefix;
+		String filename = UUID.randomUUID().toString() + "." + extention;
 
 		// 폴더가 없다면 생성
 		File folder = new File(uploadFilePath);

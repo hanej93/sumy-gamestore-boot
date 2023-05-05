@@ -15,13 +15,6 @@ import com.sumy.gamestore.model.ReportList;
 @Mapper
 public interface ReportListMapper {
 	
-//	private int reportId;
-//	private int reportFromUserId;
-//	private int reviewId;
-//	private String reportText;
-//	private LocalDateTime reportWriteDate;
-//	private boolean reportReadYn;
-	
 	@Select("select * from report_list where report_id = #{reportId}")
 	public ReportList selectOneByReportId(int reportId);
 	
@@ -42,10 +35,8 @@ public interface ReportListMapper {
 	
 	// ================================================
 	
-//	@Select("select count(*) from report_list")
 	public int countReportList(PagingVO vo);
 
-//	@Select("select * from report_list order by report_id desc limit #{start}, #{cntPage}")
 	public List<ReportReviewUserDto> selectReportList(PagingVO vo);
 	
 }

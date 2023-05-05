@@ -32,10 +32,10 @@
 			, game_intro_image1, game_intro_image2, game_intro_image3, game_intro_image4, game_intro_image5
 			, game_release_date, game_update_date, game_sale_count, game_total_earnings
 		)
-		values(#{gameTitle}, #{gameDev}, #{gamePrice}, #{gameDiscountRate}"
-			, #{gameSubText}, #{gameMainText}, #{gameRate}, #{gameThumbImage}"
-			, #{gameCategoryId1}, #{gameCategoryId2}, #{gameCategoryId3}, #{gameCategoryId4}"
-			, #{gameIntroImage1}, #{gameIntroImage2}, #{gameIntroImage3}, #{gameIntroImage4}, #{gameIntroImage5}"
+		values(#{gameTitle}, #{gameDev}, #{gamePrice}, #{gameDiscountRate}
+			, #{gameSubText}, #{gameMainText}, #{gameRate}, #{gameThumbImage}
+			, #{gameCategoryId1}, #{gameCategoryId2}, #{gameCategoryId3}, #{gameCategoryId4}
+			, #{gameIntroImage1}, #{gameIntroImage2}, #{gameIntroImage3}, #{gameIntroImage4}, #{gameIntroImage5}
 			, #{gameReleaseDate}, #{gameUpdateDate}, #{gameSaleCount}, #{gameTotalEarnings})
 	</insert>
 

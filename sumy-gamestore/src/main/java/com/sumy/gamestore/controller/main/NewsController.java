@@ -24,7 +24,7 @@ public class NewsController {
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
 			, @RequestParam(value="principal", required=false)PrincipalDetail principal) {
 		
-		int total = newsListService.getTotalCount(vo);
+		int total = newsListService.getCountForPaging(vo);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";

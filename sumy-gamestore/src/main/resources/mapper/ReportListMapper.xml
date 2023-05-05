@@ -50,27 +50,19 @@
 			</if>
 		</trim>
 		order by report_id desc limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
  	<select id="countReportList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
  		select 
-
 		count(*)
-		
-		from report_list as rp 
+		from report_list as rp
 		join user_info as fu 
 		on rp.report_from_user_id = fu.user_id 
-		
-		join review_list as rv 
+		join review_list as rv
 		on rp.review_id = rv.review_id 
-		
-		join user_info as tu 
+		join user_info as tu
 		on rv.user_id = tu.user_id
-		
  		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
 			<if test="	keyword != null and keyword != '' ">
 				AND tu.user_nickname like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -81,7 +73,6 @@
 				AND report_read_yn = 0
 			</if>
 		</trim>
-
  	</select>
  	
 </mapper>

@@ -26,7 +26,7 @@ public class PurchasedService {
 	}
 	
 	// 한 페이지 구매한게임 리스트 조회
-	public List<PurchasedGameList> 한페이지구매한게임리스트(PagingVO vo){
+	public List<PurchasedGameInfoDto> 한페이지구매한게임리스트(PagingVO vo){
 		return purchasedMapper.selectPurchasedGameList(vo);
 	}
 	

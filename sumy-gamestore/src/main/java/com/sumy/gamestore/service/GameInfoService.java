@@ -60,7 +60,6 @@ public class GameInfoService {
 
 		GameInfo addGame =
 				GameInfo.builder()
-						.gameId(0)
 						.gameTitle(gameInfo.getGameTitle())
 						.gameDev(gameInfo.getGameDev())
 						.gamePrice(gameInfo.getGamePrice())
