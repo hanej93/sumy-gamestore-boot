@@ -1,14 +1,3 @@
-/*** 
- **
- *
- 
-	공용 custom function
-	작성자 : 김명주
-	작성일 : 2021-07-01
-
-***
-**
-*/
 //11. string 을 받으면 value를 정규식으로 체크해서 다시 박는 함수
 //   사용처 - page-login-security-1.html(회원정보수정), page-signup-1.html(회원가입)
 function regixPhone(string) {
@@ -25,35 +14,17 @@ function regixPhone(string) {
 //13. 우편번호 API 호출 함수
 //    사용처 - page-signup-1.html(회원가입)
 function goPopup(){
-	// 주소검색을 수행할 팝업 페이지를 호출합니다.
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-	
-	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	 new daum.Postcode({
+        oncomplete: function(data) {
+            // 우편번호
+            $("form[name=userInfo] #userZipCode").val(data.zonecode);
+            // 상세주소 초기화
+            $("form[name=userInfo] #userDetailAddress").val("");
+            // 도로명 주소
+            $("form[name=userInfo] #userAddress").val(data.roadAddress);
+        }
+    }).open();
 }
-
-//14. 우편번호 API 결과값 가져오는 함수
-//    사용처 - page-signup-1.html(회원가입)
-function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
-		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-		$("form[name=addressForm] #loginSecurityAddressUpdate01").val(zipNo);
-		$("form[name=addressForm] #loginSecurityAddressUpdate02").val(roadAddrPart1);
-		$("form[name=addressForm] #loginSecurityAddressUpdate03").val(addrDetail);
-		
-}
-
-/*** 
- **
- *
- 
-	page-login-security-1.html(회원정보 수정 화면) custom script
-	작성자 : 김명주
-	작성일 : 2021-07-05
-
-***
-**
-*/
 
 
 $(document).on('ready', function() {
