@@ -142,37 +142,17 @@ function hangulAndEnglish(string) {
 //13. 우편번호 API 호출 함수
 //    사용처 - page-signup-1.html(회원가입)
 function goPopup(){
-	// 주소검색을 수행할 팝업 페이지를 호출합니다.
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-	
-	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	new daum.Postcode({
+            oncomplete: function(data) {
+                // 우편번호
+                $("form[name=userInfo] #userZipCode").val(data.zonecode);
+                // 상세주소 초기화
+                $("form[name=userInfo] #userDetailAddress").val("");
+                // 도로명 주소
+                $("form[name=userInfo] #userAddress").val(data.roadAddress);
+            }
+        }).open();
 }
-
-//14. 우편번호 API 결과값 가져오는 함수
-//    사용처 - page-signup-1.html(회원가입)
-function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
-		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-		$("form[name=userInfo] #zipNo").val(zipNo);
-		$("form[name=userInfo] #addrDetail").val(addrDetail);
-		$("form[name=userInfo] #roadAddrPart1").val(roadAddrPart1);
-		
-}
-
-/*** 
- **
- *
- 
-	header fixed height custom script
-	제목 : 헤더 fixed만큼 본문 마진주기
-	작성자 : 김명주
-	작성일 : 2021-07-05
-
-***
-**
-*/
-
 
 $(document).on('ready', function() {
 	$('main').css('padding-top', '80px');

@@ -289,20 +289,6 @@ public class LoginController {
 		return authKey;
 	}
 
-	// 주소 api 화면(popup)
-	@GetMapping("/sumy/jusoPopup")
-	public String test17() {
-
-		return "user/jusoPopup";
-	}
-
-	// 주소 api 화면(popup)
-	@PostMapping("/sumy/jusoPopup")
-	public String test18() {
-
-		return "user/jusoPopup";
-	}
-
 	// 회원가입 완료 화면
 	@PostMapping("/joinedSuccess")
 	public String test8(UserInfo userInfo) {

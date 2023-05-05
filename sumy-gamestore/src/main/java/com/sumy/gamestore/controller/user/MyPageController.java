@@ -77,18 +77,6 @@ public class MyPageController {
         return ResponseEntity.ok("주소수정");
     }
 
-    // 주소 api 화면(popup)
-    @GetMapping("/user/jusoPopup")
-    public String test17() {
-        return "user/jusoPopup";
-    }
-
-    // 주소 api 화면(popup)
-    @PostMapping("/user/jusoPopup")
-    public String test18() {
-        return "user/jusoPopup";
-    }
-
     // 연락처 업데이트
     @PostMapping("/user/profilePhonesUpdate")
     public ResponseEntity<String> profilePhonesUpdate(UserInfo userInfo) {
