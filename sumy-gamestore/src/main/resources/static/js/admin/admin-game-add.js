@@ -4,9 +4,8 @@ let gameAdd = {
             this.add();
         });
 
-
         $("#btn-game-add-parent").on("click", () => {
-            //this.valid();
+            this.valid();
             $('#exampleModal').modal('show');
         });
 
@@ -32,7 +31,6 @@ let gameAdd = {
     },
 
     add: function () {
-
         let stringNum = $("#sumy-game-input-price").val();
         let regex = /[^0-9]/g;
         let numberToString = stringNum.replace(regex, "");
@@ -48,9 +46,6 @@ let gameAdd = {
             categoryList[categoryStr] = $(this).val();
         });
 
-        console.log("코드" + $("#summernote").summernote('code'));
-        console.log("밸류" + $("#summernote").val());
-
         let data = {
             gameTitle: $("#gameTitle").val(),
             gameDev: $("#gameDev").val(),
@@ -63,29 +58,19 @@ let gameAdd = {
             gameCategoryId2: categoryList.gameCategoryId2,
             gameCategoryId3: categoryList.gameCategoryId3,
             gameCategoryId4: categoryList.gameCategoryId4
-
         };
 
-        var form = $('#fileForm')[0];
-        var formData = new FormData(form);
+        let form = $('#fileForm')[0];
+        let formData = new FormData(form);
 
-        var len = $('#input-multiple-image')[0].files.length;
+        let len = $('#input-multiple-image')[0].files.length;
 
-        for (var i = 0; i < len; i++) {
-            console.dir($('#input-multiple-image')[0].files[i]);
+        for (let i = 0; i < len; i++) {
             formData.append("files", $('#input-multiple-image')[0].files[i]);
-            console.log($('#input-multiple-image')[0].files[i]);
         }
-
 
         formData.append('gameInfo', new Blob([JSON.stringify(data)], {type: "application/json"}));
         formData.append('file', $('#fileAttachment')[0].files[0]);
-        //console.log($('#fileAttachment')[0].files[0]);
-        //formData.append('files', $('#input-multiple-image')[0]);
-
-
-        //console.log($('#input-multiple-image')[0]);
-
 
         $.ajax({
             type: 'POST',
@@ -99,20 +84,6 @@ let gameAdd = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-
-
-        /*$.ajax({
-            type:"POST", //겟(셀렉트-조회) 포스트(인서트-추가) 풋(업데이트-수정) 딜리트(딜리트-삭제)
-            url:"/admin/game/add",
-            data:JSON.stringify(data),
-            contentType:"application/json;charset=utf-8", // 바디의 타입을 명시
-            dataType:"json"
-        }).done(function(resp){ // 200
-            $("#exampleModal2").modal('show'); // 부트스트랩 css, js
-        }).fail(function(error){ // 500
-            console.log(error);
-            alert(JSON.stringify(error));
-        });*/
     },
 
     valid: function () {
@@ -121,21 +92,18 @@ let gameAdd = {
             $("#gameTitle").focus();
             return false;
         }
-        ;
 
         if ($("#gameDev").val() == "") {
             alert("게임제작사명을 입력해주세요!");
             $("#gameDev").focus();
             return false;
         }
-        ;
 
         if ($("#gameRate").val() == "") {
             alert("게임등급을 입력해주세요!");
             $("#gameRate").focus();
             return false;
         }
-        ;
 
         if ($("#fileAttachment").val() == "") {
             alert("이미지를 첨부해주세요!");
@@ -148,27 +116,23 @@ let gameAdd = {
             $("#sumy-game-input-price").focus();
             return false;
         }
-        ;
 
         if ($("#sumy-game-category input[type='checkbox']:checked").length < 1) {
             alert("카테고리를 최소 1개입력해주세요!");
             return false;
         }
-        ;
 
         if ($("#gameSubText").val() == "") {
             alert("게임설명을 입력해주세요!");
             $("#gameSubText").focus();
             return false;
         }
-        ;
 
         if ($("#summernote").val() == "") {
             alert("게임본문을 입력해주세요!");
             $("#summernote").focus();
             return false;
         }
-        ;
 
         if ($("#input-multiple-image").val() == "") {
             alert("이미지를 첨부해주세요!");
@@ -182,7 +146,6 @@ let gameAdd = {
     },
 
     update: function () {
-
         let stringNum = $("#sumy-game-input-price").val();
         let regex = /[^0-9]/g;
         let numberToString = stringNum.replace(regex, "");
@@ -217,26 +180,17 @@ let gameAdd = {
 
         };
 
-        var form = $('#fileForm')[0];
-        var formData = new FormData(form);
+        let form = $('#fileForm')[0];
+        let formData = new FormData(form);
 
-        var len = $('#input-multiple-image')[0].files.length;
+        let len = $('#input-multiple-image')[0].files.length;
 
-        for (var i = 0; i < len; i++) {
-            console.dir($('#input-multiple-image')[0].files[i]);
+        for (let i = 0; i < len; i++) {
             formData.append("files", $('#input-multiple-image')[0].files[i]);
-            console.log($('#input-multiple-image')[0].files[i]);
         }
-
 
         formData.append('gameInfo', new Blob([JSON.stringify(data)], {type: "application/json"}));
         formData.append('file', $('#fileAttachment')[0].files[0]);
-        //console.log($('#fileAttachment')[0].files[0]);
-        //formData.append('files', $('#input-multiple-image')[0]);
-
-
-        //console.log($('#input-multiple-image')[0]);
-
 
         $.ajax({
             type: 'PUT',
@@ -251,19 +205,6 @@ let gameAdd = {
             alert(JSON.stringify(error));
         });
 
-
-        /*$.ajax({
-            type:"POST", //겟(셀렉트-조회) 포스트(인서트-추가) 풋(업데이트-수정) 딜리트(딜리트-삭제)
-            url:"/admin/game/add",
-            data:JSON.stringify(data),
-            contentType:"application/json;charset=utf-8", // 바디의 타입을 명시
-            dataType:"json"
-        }).done(function(resp){ // 200
-            $("#exampleModal2").modal('show'); // 부트스트랩 css, js
-        }).fail(function(error){ // 500
-            console.log(error);
-            alert(JSON.stringify(error));
-        });*/
     },
 
     inputPriceReg: function () {
@@ -299,15 +240,12 @@ let gameAdd = {
     },
 
     checkboxLimit: function () {
-
-        var count = $("#sumy-game-category input[type='checkbox']:checked").length;
+        let count = $("#sumy-game-category input[type='checkbox']:checked").length;
         if (count > 4) {
             $(this).prop("checked", false);
             alert("카테고리는 4개까지 선택 가능 합니다.");
         }
     }
-
-
 }
 
 gameAdd.init();

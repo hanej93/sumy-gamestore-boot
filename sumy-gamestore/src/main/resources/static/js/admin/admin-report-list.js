@@ -96,9 +96,9 @@ let reportList = {
     // 페이지 GET 요청
     search: function () {
         let url = "/admin/report/list";
-        url = url + "?nowPage=" + 1;
-        url = url + "&keyword=" + $('#report-nickname-search').val();
-        url = url + "&reportReadYn=" + $('#reportReadYn-select').val();
+        url += "?nowPage=" + 1;
+        url += "&keyword=" + $('#report-nickname-search').val();
+        url += "&reportReadYn=" + $('#reportReadYn-select').val();
 
         location.href = url;
     },
@@ -109,7 +109,6 @@ let reportList = {
         if (checkBox.prop('checked')) {
             reportReadYn = 1;
         }
-
 
         let data = {
             reportReadYn: reportReadYn,
@@ -194,7 +193,6 @@ let reportList = {
             alert(JSON.stringify(error));
         });
     },
-
 
     // 읽음상태로 변경
     updateReadYes: function (reportId) {

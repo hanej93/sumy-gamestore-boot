@@ -72,11 +72,11 @@ let questionList = {
     },
 
     search: function () {
-        var url = "/admin/question/list";
-        url = url + "?nowPage=" + 1;
-        url = url + "&keyword=" + $('#question-title-search').val();
-        url = url + "&answerYn=" + $('#answerYn-select').val();
-        url = url + "&readerYn=" + $('#readerYn-select').val();
+        let url = "/admin/question/list";
+        url += "?nowPage=" + 1;
+        url += "&keyword=" + $('#question-title-search').val();
+        url += "&answerYn=" + $('#answerYn-select').val();
+        url += "&readerYn=" + $('#readerYn-select').val();
         location.href = url;
     },
 

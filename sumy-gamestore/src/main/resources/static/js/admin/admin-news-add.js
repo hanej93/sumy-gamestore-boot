@@ -47,15 +47,12 @@ let newsAdd = {
             $("#newsTitle").focus();
             return false;
         }
-        ;
 
         if ($("#newsSubTitle").val() == "") {
             alert("뉴스부제목을 입력해주세요!");
             $("#newsSubTitle").focus();
             return false;
         }
-        ;
-
 
         if ($("#fileAttachment").val() == "") {
             alert("이미지를 첨부해주세요!");
@@ -69,11 +66,8 @@ let newsAdd = {
             $("#summernote").focus();
             return false;
         }
-        ;
 
         $('#exampleModal').modal('show');
-
-
     },
 
     update: function () {
@@ -103,8 +97,6 @@ let newsAdd = {
             alert(JSON.stringify(error));
         });
     },
-
-
 }
 
 newsAdd.init();

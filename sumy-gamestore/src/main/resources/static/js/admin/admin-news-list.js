@@ -23,9 +23,9 @@ let newsList = {
     },
 
     search: function () {
-        var url = "/admin/news/list";
-        url = url + "?nowPage=" + 1;
-        url = url + "&keyword=" + $('#news-title-search').val();
+        let url = "/admin/news/list";
+        url += "?nowPage=" + 1;
+        url += "&keyword=" + $('#news-title-search').val();
         location.href = url;
     },
 

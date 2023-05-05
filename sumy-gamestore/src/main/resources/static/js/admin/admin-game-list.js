@@ -26,9 +26,9 @@ let gameList = {
 
     //게임 검색
     search: function () {
-        var url = "/admin/game/list";
-        url = url + "?nowPage=" + 1;
-        url = url + "&keyword=" + $('#game-title-search').val();
+        let url = "/admin/game/list";
+        url += "?nowPage=" + 1;
+        url += "&keyword=" + $('#game-title-search').val();
         location.href = url;
     },
 
