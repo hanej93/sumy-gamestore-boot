@@ -426,8 +426,9 @@
 		src="/resources/static/assets/js/helpers/hs.file-attachments.js"></script>
 
 	<!-- JS Customization -->
-	<script src="/resources/static/user/assets/js/page-login-security-1.js"></script>
-	<script src="/resources/static/user/assets/js/footer.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/resources/static/js/user/page-login-security-1.js"></script>
+	<script src="/resources/static/js/user/footer.js"></script>
 
 	<!-- JS Plugins Init. -->
 	<script>

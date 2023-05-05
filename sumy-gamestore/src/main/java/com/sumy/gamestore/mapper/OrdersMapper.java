@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.sumy.gamestore.dto.PagingVO;
+import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.model.PurchasedGameList;
 
 @Mapper

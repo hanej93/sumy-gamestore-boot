@@ -1,38 +1,29 @@
 package com.sumy.gamestore.service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.sumy.gamestore.config.auth.PrincipalDetail;
-import com.sumy.gamestore.dto.PagingVO;
 import com.sumy.gamestore.dto.WishlistGameInfoDto;
-import com.sumy.gamestore.mapper.GameInfoMapper;
 import com.sumy.gamestore.mapper.PaymentMapper;
 import com.sumy.gamestore.mapper.PurchasedMapper;
 import com.sumy.gamestore.model.GameInfo;
 import com.sumy.gamestore.model.PurchasedGameList;
 import com.sumy.gamestore.model.WishlistGame;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@RequiredArgsConstructor
 @Service
 public class SinglePaymentService {
 
-	@Autowired
-	private PaymentMapper paymentMapper;
-	
-	@Autowired
-	WishListService wishListService;
-	
-	@Autowired
-	GameInfoService gameInfoService;
-	
-	@Autowired
-	PurchasedMapper purchasedMapper;
+	private final PaymentMapper paymentMapper;
+	private final WishListService wishListService;
+	private final GameInfoService gameInfoService;
+	private final PurchasedMapper purchasedMapper;
 	
 	@Transactional 
 	public int insertPurchasedGame(Authentication authentication, int gameId) {
@@ -45,7 +36,7 @@ public class SinglePaymentService {
 		
 		List<WishlistGameInfoDto> userWishList = wishListService.selectWishListByUserId(userId);//위시리스트에서 유저아이디 가져오기.
 		List<GameInfo> gameInfoList = new ArrayList<GameInfo>();
-		GameInfo gameInfo = gameInfoService.게임검색(gameId);
+		GameInfo gameInfo = gameInfoService.findById(gameId);
 		System.out.println(gameInfo);
 		if(userWishList.size()>0) {//만약 wishlist에 해당게임이 있다면
 			deleteWish(new WishlistGame(userWishList.get(0).getWishlistId(), userWishList.get(0).getGameId(), userWishList.get(0).getUserId(),

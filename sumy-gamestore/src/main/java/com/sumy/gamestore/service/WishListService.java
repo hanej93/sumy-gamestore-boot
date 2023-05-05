@@ -2,37 +2,37 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.sumy.gamestore.dto.WishlistGameInfoDto;
 import com.sumy.gamestore.mapper.WishlistMapper;
 import com.sumy.gamestore.model.WishlistGame;
 
+@RequiredArgsConstructor
 @Service
 public class WishListService {
 
-	@Autowired
-	private WishlistMapper wishlistMapper;
+	private final WishlistMapper wishlistMapper;
 	
 	public List<WishlistGameInfoDto> selectWishListByUserId(int userId) {
 		return wishlistMapper.selectWishList(userId);
 		
 	}
 	
-	public int 위시리스트추가(WishlistGame wishlistGame) {
+	public int svae(WishlistGame wishlistGame) {
 		return wishlistMapper.insertWishlist(wishlistGame);
 	}
 	
-	public int 위시리스트유무(int userId, int gameId) {
+	public int getCountByUserIdAndGameId(int userId, int gameId) {
 		return wishlistMapper.countWishlistByIds(userId, gameId);
 	}
 	
-	public int 위시리스트삭제(int userId, int gameId) {
+	public int deleteByUserIdAndGameId(int userId, int gameId) {
 		return wishlistMapper.deleteWishlistByIds(userId, gameId);
 	}
 	
-	public int 위시리스트삭제_위시리스트아이디(int wishlistId) {
+	public int deleteById(int wishlistId) {
 		return wishlistMapper.deletewishListbyId(wishlistId);
 	}
 	

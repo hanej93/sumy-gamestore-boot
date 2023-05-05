@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ReviewList {
+
 	private int reviewId;
 	private int gameId;
 	private int userId;
@@ -21,4 +22,5 @@ public class ReviewList {
 	private int reviewStarRating;
 	private LocalDateTime reviewWriteDate;
 	private LocalDateTime reviewUpdateDate;
+
 }

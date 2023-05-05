@@ -438,8 +438,8 @@
 	<script src="/resources/static/assets/js/components/hs.carousel.js"></script>
 
 	<!-- JS Customization -->
-	<script src="/resources/static/user/assets/js/catalogue-page.js"></script>
-	<script src="/resources/static/user/assets/js/footer.js"></script>
+	<script src="/resources/static/js/user/catalogue-page.js"></script>
+	<script src="/resources/static/js/user/footer.js"></script>
 
 	<!-- JS Plugins Init. -->
 	<script>

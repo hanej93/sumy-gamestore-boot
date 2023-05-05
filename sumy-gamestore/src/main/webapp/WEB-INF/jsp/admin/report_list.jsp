@@ -495,6 +495,6 @@
       });
     </script>
     
-    <script src="/resources/static/etc/admin-report-list.js"></script>
+    <script src="/resources/static/js/admin/admin-report-list.js"></script>
 </body>
 </html>

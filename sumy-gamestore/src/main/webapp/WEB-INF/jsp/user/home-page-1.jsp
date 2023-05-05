@@ -980,7 +980,7 @@
 	<script src="/resources/static/assets/js/components/hs.count-qty.js"></script>
 
 	<!-- JS Customization -->
-	<script src="/resources/static/user/assets/js/footer.js"></script>
+	<script src="/resources/static/js/user/footer.js"></script>
 
 
 	<!-- JS Plugins Init. -->

@@ -4,15 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.QuestionListMapper">
- 	<select id="selectQuestionList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.dto.QuestionUserDto">
- 		<!-- select * from question_list -->
- 		select * 
+
+	<select id="selectOneByQuestionId" resultType="com.sumy.gamestore.model.QuestionList">
+		select * from question_list
+		where question_id = #{questionId}
+	</select>
+
+	<update id="updateQuestion" parameterType="com.sumy.gamestore.model.QuestionList">
+		update question_list
+		set user_id=#{userId}
+			, question_title = #{questionTitle}
+			, question_text = #{questionText}
+			, question_write_date = #{questionWriteDate}
+			, question_answer_yn = #{questionAnswerYn}
+			, question_read_yn = #{questionReadYn}
+			, question_image1 = #{questionImage1}
+			, question_image2 = #{questionImage2}
+			, question_image3 = #{questionImage3}
+		where question_id = #{questionId}
+	</update>
+
+	<delete id="deleteQuestion">
+		delete from question_list
+		where question_id = #{questionId}
+	</delete>
+
+ 	<select id="selectQuestionList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.dto.QuestionUserDto">
+ 		select *
 		from question_list as q 
 		inner join user_info as u 
 		on q.user_id = u.user_id
- 		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 		<where>
 			<if test="keyword != null and keyword != '' ">
 				AND question_title like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -28,20 +50,16 @@
 			<if test="answerYn != null and answerYn != '' and answerYn == 'No'">
 				AND question_answer_yn = 0
 			</if>
-		</trim>
+		</where>
 		order by question_id desc limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
- 	<select id="countQuestionList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
- 		<!-- select count(*) from question_list -->
- 		select count(*) 
+ 	<select id="countQuestionList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
+ 		select count(1)
 		from question_list as q 
 		inner join user_info as u 
 		on q.user_id = u.user_id
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 		<where>
 			<if test="	keyword != null and keyword != '' ">
 				AND question_title like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -57,8 +75,6 @@
 			<if test="answerYn != null and answerYn != '' and answerYn == 'No'">
 				AND question_answer_yn = 0
 			</if>
-		</trim>
-
+		</where>
  	</select>
- 	
 </mapper>

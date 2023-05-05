@@ -2,7 +2,7 @@ package com.sumy.gamestore.controller.main.api;
 
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,24 +16,22 @@ import com.sumy.gamestore.model.ReviewList;
 import com.sumy.gamestore.service.ReportListService;
 import com.sumy.gamestore.service.ReviewListService;
 
+@RequiredArgsConstructor
 @RestController
 public class SingleProductApiController {
 
-	@Autowired
-	ReviewListService reviewListService; 
-	
-	@Autowired
-	ReportListService reportListService;
+	private final ReviewListService reviewListService;
+	private final ReportListService reportListService;
 	
 	@PutMapping("/sumy/game/review")
 	public ResponseDto<Integer> updateReview(@RequestBody ReviewList reviewList){
 		System.out.println(reviewList);
-		ReviewList resultReview = reviewListService.리뷰검색(reviewList.getReviewId());
+		ReviewList resultReview = reviewListService.findById(reviewList.getReviewId());
 		resultReview.setReviewText(reviewList.getReviewText());
 		resultReview.setReviewStarRating(reviewList.getReviewStarRating());
 		resultReview.setReviewUpdateDate(LocalDateTime.now());
 		
-		reviewListService.리뷰수정(resultReview);
+		reviewListService.update(resultReview);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -53,7 +51,7 @@ public class SingleProductApiController {
 										   .reviewUpdateDate(LocalDateTime.now())
 										   .build();
 		
-		reviewListService.리뷰작성(inputReview);
+		reviewListService.save(inputReview);
 										   
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -73,10 +71,10 @@ public class SingleProductApiController {
 										   .reportReadYn(0)
 										   .build();
 										   
-		reportListService.댓글신고추가(inputReport);
-		ReviewList review = reviewListService.리뷰검색(reportList.getReviewId());
-		review.setReviewReportCount(reportListService.신고개수_리뷰(reportList.getReviewId()));
-		reviewListService.리뷰수정(review);
+		reportListService.save(inputReport);
+		ReviewList review = reviewListService.findById(reportList.getReviewId());
+		review.setReviewReportCount(reportListService.getCountById(reportList.getReviewId()));
+		reviewListService.update(review);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -85,7 +83,7 @@ public class SingleProductApiController {
 	public ResponseDto<Integer> deleteReview(@RequestBody ReviewList reviewList){
 		System.out.println(reviewList);
 										   
-		reviewListService.리뷰삭제(reviewList.getReviewId());
+		reviewListService.delete(reviewList.getReviewId());
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}

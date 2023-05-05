@@ -2,17 +2,18 @@ package com.sumy.gamestore.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sumy.gamestore.mapper.ShowGameMapper;
 import com.sumy.gamestore.model.GameInfo;
 
+@RequiredArgsConstructor
 @Service
 public class ShowGameService { //메인 페이지
 	
-	@Autowired
-	private ShowGameMapper showGameMapper;
+	private final ShowGameMapper showGameMapper;
 	
 	//무료 게임
 	public List<GameInfo> selectFreeGame() {
@@ -44,9 +45,7 @@ public class ShowGameService { //메인 페이지
 	public List<GameInfo> selectRecommendGame() {
 		return showGameMapper.selectRecommendGame();
 	}
-	
-	
-	
+
 	//최근 업데이트
 	public List<GameInfo> selectRecentUpdateGame() {
 		return showGameMapper.selectRecentUpdateGame();

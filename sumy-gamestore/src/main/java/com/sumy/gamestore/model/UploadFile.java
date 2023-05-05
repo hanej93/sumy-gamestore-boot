@@ -13,4 +13,5 @@ public class UploadFile {
 	private int size;
 	private String contentType;
 	private String resourcePathname;
+
 }

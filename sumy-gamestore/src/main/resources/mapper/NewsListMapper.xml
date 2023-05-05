@@ -4,11 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.NewsListMapper">
- 	<select id="selectNewsList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.model.NewsList">
+ 	<select id="selectNewsList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.model.NewsList">
  		select * from news_list
- 		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 		<where>
 			<if test="keyword != null and keyword != '' and (keywordOpt == '' or keywordOpt == 'title')">
 				AND news_title like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -19,24 +17,49 @@
 				AND news_title like CONCAT('%', #{keyword}, '%')
 				OR news_text like CONCAT('%', #{keyword}, '%')
 			</if>
-		</trim>
+		</where>
 		order by news_id desc limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
- 	<select id="countNewsList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
- 		select count(*) from news_list 
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
-			<if test="	keyword != null and keyword != '' ">
-			
+ 	<select id="countNewsList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
+ 		select count(1) from news_list
+ 		<where>
+			<if test="keyword != null and keyword != ''">
 				AND news_title like CONCAT('%', #{keyword}, '%')
-
 			</if>
-
-		</trim>
-
+		</where>
  	</select>
+
+	<insert id="insertNews" useGeneratedKeys="true" keyColumn="news_id" keyProperty="newsId">
+		insert into news_list (
+			news_title, news_sub_title, news_thumb_image
+			, news_text, news_write_date, news_update_date
+		)
+		values(
+			#{newsTitle}, #{newsSubTitle}, #{newsThumbImage}
+			, #{newsText}, #{newsWriteDate}, #{newsUpdateDate}
+		)
+	</insert>
+
+	<select id="selectOneByNewsId" resultType="com.sumy.gamestore.model.NewsList">
+		select * from news_list
+		where news_id = #{newsId}
+	</select>
+
+	<update id="updateNews" >
+		update news_list
+		set news_title = #{newsTitle}
+		  , news_sub_title = #{newsSubTitle}
+		  , news_thumb_image = #{newsThumbImage}
+		  , news_text = #{newsText}
+		  , news_write_date = #{newsWriteDate}
+		  , news_update_date = #{newsUpdateDate}
+		where news_id = #{newsId}
+	</update>
+
+	<delete id="deleteNews">
+		delete from news_list
+		where news_id = #{newsId}
+	</delete>
  	
 </mapper>

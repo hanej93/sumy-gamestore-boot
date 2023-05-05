@@ -4,41 +4,68 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.ReportListMapper">
- 	<select id="selectReportList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.dto.ReportReviewUserDto">
- 		select 
 
+	<select id="selectOneByReportId" resultType="com.sumy.gamestore.model.ReportList">
+		select * from report_list
+		 where report_id = #{reportId}
+	</select>
+
+	<insert id="insertReport" useGeneratedKeys="true" keyColumn="report_id" keyProperty="reportId">
+		insert into report_list (
+			report_from_user_id, review_id,
+			report_text, report_write_date, report_read_yn
+		) values(
+			#{reportFromUserId}, #{reviewId},
+			#{reportText}, #{reportWriteDate}, #{reportReadYn}
+		)
+	</insert>
+
+	<update id="updateReport">
+		update report_list
+		set report_from_user_id=#{reportFromUserId}
+			, review_id = #{reviewId}
+			, report_text = #{reportText}
+			, report_write_date = #{reportWriteDate}
+			, report_read_yn = #{reportReadYn}
+		where report_id = #{reportId}
+	</update>
+
+	<delete id="deleteReport">
+		delete from report_list
+		where report_id = #{reportId}
+	</delete>
+
+	<select id="countReportByReviewId" resultType="int">
+		select count(1) from report_list
+		where review_id = #{reviewId}
+	</select>
+
+ 	<select id="selectReportList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.dto.ReportReviewUserDto">
+ 		select 
 		rp.report_id,
 		rp.report_from_user_id,
 		rp.review_id,
 		rp.report_text,
 		rp.report_write_date,
 		rp.report_read_yn,
-		
 		fu.user_name as from_user_name,
 		fu.user_nickname as from_user_nickname,
 		fu.user_email as from_user_email,
-		
 		tu.user_name as to_user_name,
 		tu.user_nickname as to_user_nickname,
 		tu.user_email as to_user_email,
 		tu.user_warning_count as to_user_warning_count,
 		tu.user_id as to_user_id,
-		
 		rv.review_text,
 		rv.review_report_count 
-		
-		from report_list as rp 
+		from report_list as rp
 		join user_info as fu 
 		on rp.report_from_user_id = fu.user_id 
-		
-		join review_list as rv 
+		join review_list as rv
 		on rp.review_id = rv.review_id 
-		
-		join user_info as tu 
+		join user_info as tu
 		on rv.user_id = tu.user_id
- 		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 		<where>
 			<if test="keyword != null and keyword != '' ">
 				AND tu.user_nickname like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -48,29 +75,21 @@
 			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'No'">
 				AND report_read_yn = 0
 			</if>
-		</trim>
+		</where>
 		order by report_id desc limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
- 	<select id="countReportList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
+ 	<select id="countReportList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
  		select 
-
-		count(*)
-		
-		from report_list as rp 
+		count(1)
+		from report_list as rp
 		join user_info as fu 
 		on rp.report_from_user_id = fu.user_id 
-		
-		join review_list as rv 
+		join review_list as rv
 		on rp.review_id = rv.review_id 
-		
-		join user_info as tu 
+		join user_info as tu
 		on rv.user_id = tu.user_id
-		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 		<where>
 			<if test="	keyword != null and keyword != '' ">
 				AND tu.user_nickname like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -80,8 +99,7 @@
 			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'No'">
 				AND report_read_yn = 0
 			</if>
-		</trim>
-
+		</where>
  	</select>
  	
 </mapper>

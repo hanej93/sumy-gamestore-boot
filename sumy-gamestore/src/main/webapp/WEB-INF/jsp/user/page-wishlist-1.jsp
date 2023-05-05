@@ -296,9 +296,9 @@
 	<script src="/resources/static/assets/js/helpers/hs.file-attachments.js"></script>
 
 	<!-- JS Customization -->
-	<script src="/resources/static/user/assets/js/page-wishlist-1.js"></script>
-	<script src="/resources/static/user/assets/js/footer.js"></script>
-	<script src="/resources/static/user/assets/js/payment.js"></script>
+	<script src="/resources/static/js/user/page-wishlist-1.js"></script>
+	<script src="/resources/static/js/user/footer.js"></script>
+	<script src="/resources/static/js/user/payment.js"></script>
 
 	<!-- JS Plugins Init. -->
 	<script>

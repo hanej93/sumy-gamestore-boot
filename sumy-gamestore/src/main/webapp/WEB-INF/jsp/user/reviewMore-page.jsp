@@ -524,8 +524,8 @@
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 	<!-- JS Customization -->
-	<script src="/resources/static/user/assets/js/reviewMore-page.js"></script>
-	<script src="/resources/static/user/assets/js/footer.js"></script>
+	<script src="/resources/static/js/user/reviewMore-page.js"></script>
+	<script src="/resources/static/js/user/footer.js"></script>
 
 	<script>
     $(document).on('ready', function () {

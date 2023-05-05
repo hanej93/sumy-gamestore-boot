@@ -4,11 +4,72 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.UserInfoMapper">
- 	<select id="selectUserInfo" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="com.sumy.gamestore.model.UserInfo">
- 		select * from user_info
- 		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 
+	<select id="findByUsername" resultType="com.sumy.gamestore.model.UserInfo">
+		select * from user_info where user_name = #{username}
+	</select>
+
+	<select id="findByUserEmail" resultType="com.sumy.gamestore.model.UserInfo">
+		select * from user_info where user_email = #{userEmail}
+	</select>
+
+	<select id="selectOneByUserId" resultType="com.sumy.gamestore.model.UserInfo">
+		select * from user_info where user_id = #{userId}
+	</select>
+
+	<update id="updateUser">
+		update user_info
+		set user_email =#{userEmail},
+			user_password =#{userPassword},
+			user_nickname =#{userNickname},
+			user_profile_image =#{userProfileImage},
+			user_zip_code =#{userZipCode},
+			user_address =#{userAddress},
+			user_detail_address =#{userDetailAddress},
+			user_phone_number =#{userPhoneNumber},
+			user_name =#{userName},
+			user_birth_date =#{userBirthDate},
+			user_gender =#{userGender},
+			user_joined_date =#{userJoinedDate},
+			user_warning_count =#{userWarningCount},
+			user_blacklist =#{userBlacklist},
+			user_authority_rate =#{userAuthorityRate},
+			user_memo = #{userMemo}
+		where user_id = #{userId}
+	</update>
+
+	<select id="reviewIdList" resultType="int">
+		select review_id from review_list where user_id = #{userId}
+	</select>
+
+	<delete id="deleteQuestionList">
+		delete from question_list where user_id = #{userId}
+	</delete>
+
+	<delete id="deleteReportList">
+		delete from report_list where report_from_user_id = #{userId}
+	</delete>
+
+	<delete id="deleteReview">
+		delete from review_list where user_id = #{userId}
+	</delete>
+
+	<delete id="deleteWishListGame">
+		delete from wishlist_game where user_id = #{userId}
+	</delete>
+
+	<delete id="deletePurchasedGameList">
+		delete from purchased_game_list where user_id = #{userId}
+	</delete>
+
+	<delete id="deleteUser">
+		delete from user_info where user_id = #{userId}
+	</delete>
+
+
+ 	<select id="selectUserInfo" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.model.UserInfo">
+ 		select * from user_info
+ 		<where>
 			<if test="keyword != null and keyword != '' ">
 				AND user_nickname like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -20,29 +81,23 @@
 			<if test="blacklistYn != null and blacklistYn != '' and blacklistYn == 'No'">
 				AND user_blacklist = 0
 			</if>
-		</trim>
+		</where>
 		order by user_id desc limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
- 	<select id="countUserList" parameterType="com.sumy.gamestore.dto.PagingVO" resultType="int">
- 		select count(*) from user_info 
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 	<select id="countUserList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
+ 		select count(1) from user_info
+ 		<where>
 			<if test="	keyword != null and keyword != '' ">
 				AND user_nickname like CONCAT('%', #{keyword}, '%')
 			</if>
-
 			<if test="blacklistYn != null and blacklistYn != '' and blacklistYn == 'Yes'">
 				AND user_blacklist = 1
 			</if>
-			
 			<if test="blacklistYn != null and blacklistYn != '' and blacklistYn == 'No'">
 				AND user_blacklist = 0
 			</if>
-		</trim>
-
+		</where>
  	</select>
  	
 </mapper>

@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class WishlistGame {
+
 	private int wishlistId;
 	private int gameId;
 	private int userId;
 	private LocalDateTime wishlistWriteDate;
+
 }
