@@ -6,30 +6,131 @@
 <mapper namespace="com.sumy.gamestore.mapper.GameInfoMapper">
  	<select id="selectGameList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.model.GameInfo">
  		select * from game_info 
- 		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 		<where>
 			<if test="keyword != null and keyword != '' ">
 				AND game_title like CONCAT('%', #{keyword}, '%')
 			</if>
-		</trim>
+		</where>
 		order by game_id desc limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
  	<select id="countGameList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
  		select count(*) from game_info 
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+ 		<where>
 			<if test="	keyword != null and keyword != '' ">
-			
 				AND game_title like CONCAT('%', #{keyword}, '%')
-
 			</if>
-
-		</trim>
-
+		</where>
  	</select>
- 	
+
+	<insert id="insertGame" parameterType="com.sumy.gamestore.model.GameInfo" useGeneratedKeys="true" keyColumn="game_id" keyProperty="gameId">
+		insert into game_info
+		(
+			game_title, game_dev, game_price, game_discount_rate
+			, game_sub_text, game_main_text, game_rate, game_thumb_image
+			, game_category_id1, game_category_id2, game_category_id3, game_category_id4
+			, game_intro_image1, game_intro_image2, game_intro_image3, game_intro_image4, game_intro_image5
+			, game_release_date, game_update_date, game_sale_count, game_total_earnings
+		)
+		values(#{gameTitle}, #{gameDev}, #{gamePrice}, #{gameDiscountRate}"
+			, #{gameSubText}, #{gameMainText}, #{gameRate}, #{gameThumbImage}"
+			, #{gameCategoryId1}, #{gameCategoryId2}, #{gameCategoryId3}, #{gameCategoryId4}"
+			, #{gameIntroImage1}, #{gameIntroImage2}, #{gameIntroImage3}, #{gameIntroImage4}, #{gameIntroImage5}"
+			, #{gameReleaseDate}, #{gameUpdateDate}, #{gameSaleCount}, #{gameTotalEarnings})
+	</insert>
+
+	<update id="updateGame">
+		update game_info
+		set game_title = #{gameTitle}
+			, game_dev = #{gameDev}
+			, game_price = #{gamePrice}
+			, game_discount_rate = #{gameDiscountRate}
+			, game_sub_text = #{gameSubText}
+			, game_main_text = #{gameMainText}
+			, game_rate = #{gameRate}
+			, game_thumb_image = #{gameThumbImage}
+			, game_category_id1 = #{gameCategoryId1}
+			, game_category_id2 = #{gameCategoryId2}
+			, game_category_id3 = #{gameCategoryId3}
+			, game_category_id4 = #{gameCategoryId4}
+			, game_intro_image1 = #{gameIntroImage1}
+			, game_intro_image2 = #{gameIntroImage2}
+			, game_intro_image3 = #{gameIntroImage3}
+			, game_intro_image4 = #{gameIntroImage4}
+			, game_intro_image5 = #{gameIntroImage5}
+			, game_release_date = #{gameReleaseDate}
+			, game_update_date = #{gameUpdateDate}
+			, game_sale_count = #{gameSaleCount}
+			, game_total_earnings = #{gameTotalEarnings}
+			where game_id = #{gameId}
+	</update>
+
+	<select id="selectOneByGameId" resultType="com.sumy.gamestore.model.GameInfo">
+		select * from game_info
+		where game_id = #{gameId}
+	</select>
+
+	<select id="findReviewListByGameId" resultType="int">
+		select review_id from review_list
+		where game_id = #{gameId}
+	</select>
+
+	<delete id="deleteReportListByReviewId">
+		delete from report_list
+		where review_id = #{reviewId}
+	</delete>
+
+	<delete id="deleteReviewByGameId">
+		delete from review_list
+		where game_id = #{gameId}
+	</delete>
+
+	<delete id="deleteWishListGameByGameId">
+		delete from wishlist_game
+		where game_id = #{gameId}
+	</delete>
+
+	<delete id="deletePurchasedGameListByGameId">
+		delete from purchased_game_list
+		where game_id = #{gameId}
+	</delete>
+
+	<delete id="deleteGameInfoById">
+		delete from game_Info
+		where game_id = #{gameId}
+	</delete>
+
+	<select id="selectCategoryNameByCategoryId" resultType="String">
+		select category_name
+		from category_list
+		where
+		category_id in (
+			(select game_category_id1 from game_info where game_id = #{gameId})
+			, (select game_category_id2 from game_info where game_id = #{gameId})
+			, (select game_category_id3 from game_info where game_id = #{gameId})
+			, (select game_category_id4 from game_info where game_id = #{gameId})
+		)
+	</select>
+
+	<select id="selectRelatedGameInfo" resultType="com.sumy.gamestore.model.GameInfo">
+		select * from game_info
+		where game_category_id1 = #{categoryId}
+		   or game_category_id2 = #{categoryId}
+		   or game_category_id3 = #{categoryId}
+		   or game_category_id4 = #{categoryId}
+		order by game_id desc
+		limit 7
+	</select>
+
+	<select id="countCategoryListGroupById" resultType="com.sumy.gamestore.dto.CategoryCountDto">
+		select category_id, category_name, count(*) as category_count
+		from game_info g
+		join category_list c
+		  on g.game_category_id1 = c.category_id
+		  or g.game_category_id2 = c.category_id
+		  or g.game_category_id3 = c.category_id
+		  or g.game_category_id4 = c.category_id
+		group by category_id
+		order by category_name
+	</select>
 </mapper>

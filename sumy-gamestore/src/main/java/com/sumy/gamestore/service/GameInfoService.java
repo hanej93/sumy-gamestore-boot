@@ -144,19 +144,19 @@ public class GameInfoService {
 	public int deleteById(int gameId) {
 		// 1. 리뷰리스트를 게임 아이디로 조회해서 해당 리뷰아이디를 List<> 로 받아옴
 		// List<Integer> deleteReviewIdList = 1번의 결과;
-		List<Integer> deleteReviewIdList = gameInfoMapper.reviewIdList(gameId);
+		List<Integer> deleteReviewIdList = gameInfoMapper.findReviewListByGameId(gameId);
 		
 		// 2. 받아온 리스트에 해당 되는 리뷰 아이디를 반복해서 제거
 		for(int reviewId : deleteReviewIdList){
-			gameInfoMapper.deleteReportList(reviewId);
+			gameInfoMapper.deleteReportListByReviewId(reviewId);
 		}
 		
 		// -> 리포트 삭제 완료! -> 리포트 삭제가 되었으니 리뷰삭제가능하겠죠??
-		gameInfoMapper.deleteReview(gameId);
-		gameInfoMapper.deleteWishListGame(gameId);
-		gameInfoMapper.deletePurchasedGameList(gameId);
+		gameInfoMapper.deleteReviewByGameId(gameId);
+		gameInfoMapper.deleteWishListGameByGameId(gameId);
+		gameInfoMapper.deletePurchasedGameListByGameId(gameId);
 		
-		return gameInfoMapper.deleteGame(gameId);
+		return gameInfoMapper.deleteGameInfoById(gameId);
 	}
 	
 	public List<String> getCategoryNamesByGameId(int gameId){
