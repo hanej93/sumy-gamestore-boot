@@ -17,14 +17,14 @@ public class FileUploadService {
 		// 현재 날짜 조회 - ex) 2021-07-07
 		String currentDate = LocalDate.now().toString();
 		// 파일 저장 경로 (현재 날짜를 포함) - ex) C:/upload/2021-07-07/
-		String uploadFilePath = "C:\\upload\\" + currentDate + "/";
+		String uploadFilePath = "C:/upload/" + currentDate + "/";
 
 		// 파일 확장자 ex) jpg, png ..
-		String extention = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1,
+		String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1,
 				file.getOriginalFilename().length());
 
 		// 랜덤아이디로 파일명 생성
-		String filename = UUID.randomUUID().toString() + "." + extention;
+		String filename = UUID.randomUUID().toString() + "." + extension;
 
 		// 폴더가 없다면 생성
 		File folder = new File(uploadFilePath);

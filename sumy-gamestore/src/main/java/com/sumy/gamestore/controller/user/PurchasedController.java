@@ -31,7 +31,7 @@ public class PurchasedController {
 			vo.setLoginUserId(userId);
 			
 			
-			int total = purchasedService.구매한게임총개수(vo);
+			int total = purchasedService.getCountForPaging(vo);
 			model.addAttribute("purchasedGameCount", total);
 			
 			if (nowPage == null && cntPerPage == null) {
@@ -46,7 +46,7 @@ public class PurchasedController {
 			vo.setLoginUserId(userId);
 			vo.setOrderOpt(orderOpt);
 			model.addAttribute("paging", vo);
-			model.addAttribute("viewAll", purchasedService.한페이지구매한게임리스트(vo));
+			model.addAttribute("viewAll", purchasedService.findList(vo));
 			
 			
 				// 로그인한 유저아이디로 조회!!

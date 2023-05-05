@@ -26,12 +26,12 @@ public class SingleProductApiController {
 	@PutMapping("/sumy/game/review")
 	public ResponseDto<Integer> updateReview(@RequestBody ReviewList reviewList){
 		System.out.println(reviewList);
-		ReviewList resultReview = reviewListService.리뷰검색(reviewList.getReviewId());
+		ReviewList resultReview = reviewListService.findById(reviewList.getReviewId());
 		resultReview.setReviewText(reviewList.getReviewText());
 		resultReview.setReviewStarRating(reviewList.getReviewStarRating());
 		resultReview.setReviewUpdateDate(LocalDateTime.now());
 		
-		reviewListService.리뷰수정(resultReview);
+		reviewListService.update(resultReview);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -51,7 +51,7 @@ public class SingleProductApiController {
 										   .reviewUpdateDate(LocalDateTime.now())
 										   .build();
 		
-		reviewListService.리뷰작성(inputReview);
+		reviewListService.save(inputReview);
 										   
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -72,9 +72,9 @@ public class SingleProductApiController {
 										   .build();
 										   
 		reportListService.save(inputReport);
-		ReviewList review = reviewListService.리뷰검색(reportList.getReviewId());
+		ReviewList review = reviewListService.findById(reportList.getReviewId());
 		review.setReviewReportCount(reportListService.getCountById(reportList.getReviewId()));
-		reviewListService.리뷰수정(review);
+		reviewListService.update(review);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -83,7 +83,7 @@ public class SingleProductApiController {
 	public ResponseDto<Integer> deleteReview(@RequestBody ReviewList reviewList){
 		System.out.println(reviewList);
 										   
-		reviewListService.리뷰삭제(reviewList.getReviewId());
+		reviewListService.delete(reviewList.getReviewId());
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}

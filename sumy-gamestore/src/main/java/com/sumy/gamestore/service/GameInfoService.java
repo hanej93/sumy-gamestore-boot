@@ -88,7 +88,6 @@ public class GameInfoService {
 
 	@Transactional
 	public int update(GameInfo gameInfo, MultipartFile file, List<MultipartFile> files) {
-		// 아이디로 데이터를 가져옴
 		GameInfo oldGame = findById(gameInfo.getGameId());
 
 		// 게임 썸네일 이미지 업로드

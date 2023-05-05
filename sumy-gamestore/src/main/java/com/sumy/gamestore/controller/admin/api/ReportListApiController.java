@@ -56,7 +56,7 @@ public class ReportListApiController {
 	// 리뷰삭제 기능 (미구현 - 리뷰 관련 클래스필요)
 	@DeleteMapping("/admin/report/review")
 	public ResponseDto<Integer> deleteReview(@RequestBody ReportReviewUserDto reportReviewUserDto) {
-		reviewListService.리뷰삭제(reportReviewUserDto.getReviewId());
+		reviewListService.delete(reportReviewUserDto.getReviewId());
 		
 		int result = 1;
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), result);

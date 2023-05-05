@@ -32,9 +32,9 @@ public class SingleProductController {
 			PrincipalDetail principal = (PrincipalDetail) authentication.getPrincipal();
 			int userId = principal.getUser().getUserId();
 			
-			int exists =  wishListService.위시리스트유무(userId, gameId);
+			int exists =  wishListService.getCountByUserIdAndGameId(userId, gameId);
 			
-			int purchased = purchasedService.구매한게임유무(userId, gameId);
+			int purchased = purchasedService.isPurchased(userId, gameId);
 			
 			model.addAttribute("purchasedGame", purchased);
 			
@@ -49,13 +49,13 @@ public class SingleProductController {
 		GameInfo inputGameInfo = gameInfoService.findById(gameId);
 		
 		model.addAttribute("gameInfo", inputGameInfo);
-		model.addAttribute("reviewList", reviewListService.리뷰검색_게임아이디_5(gameId));
+		model.addAttribute("reviewList", reviewListService.findReviewListByGameIdTop5(gameId));
 		model.addAttribute("gameCategoryList", gameInfoService.getCategoryNamesByGameId(gameId));
 		model.addAttribute("relatedGameList", gameInfoService.selectRelativeGamesByCategoryId(inputGameInfo.getGameCategoryId1()));
 		
 		
 		System.out.println(gameInfoService.findById(gameId));
-		System.out.println(reviewListService.리뷰검색_게임아이디_5(gameId));
+		System.out.println(reviewListService.findReviewListByGameIdTop5(gameId));
 		
 		return "user/page-single-product-1";
 	}
@@ -68,7 +68,7 @@ public class SingleProductController {
 			, Authentication authentication
 	/* , @AuthenticationPrincipal PrincipalDetail principal */) {
 		
-		int total = reviewListService.리뷰총개수_게임아이디(gameId, vo);
+		int total = reviewListService.getByGameIdForPaging(gameId, vo);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";
@@ -80,14 +80,14 @@ public class SingleProductController {
 		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", vo);
 		model.addAttribute("gameInfo", gameInfoService.findById(gameId));
-		model.addAttribute("reviewList", reviewListService.리뷰검색_게임아이디(gameId, vo));
+		model.addAttribute("reviewList", reviewListService.findByGameIdForPaging(gameId, vo));
 		
 		System.out.println(gameId);
 		if(authentication != null) {
 			PrincipalDetail principal = (PrincipalDetail) authentication.getPrincipal();
 			int userId = principal.getUser().getUserId();
-			int exists =  wishListService.위시리스트유무(userId, gameId);
-			int purchased = purchasedService.구매한게임유무(userId, gameId);
+			int exists =  wishListService.getCountByUserIdAndGameId(userId, gameId);
+			int purchased = purchasedService.isPurchased(userId, gameId);
 			
 			model.addAttribute("purchasedGame", purchased);
 						
@@ -97,9 +97,9 @@ public class SingleProductController {
 				model.addAttribute("existsWishlist", null);
 			}
 			
-			System.out.println("쿼리문 결과: " + reviewListService.유저아이디개수_이메일(principal.getUser().getUserId(), gameId));
+			System.out.println("쿼리문 결과: " + reviewListService.getCountByGameIdAndUserId(principal.getUser().getUserId(), gameId));
 			// 로그인한 아이디로 리뷰조회 갯수 -> 0이면 리뷰 작성 가능!
-			model.addAttribute("userReviewCnt", reviewListService.유저아이디개수_이메일(principal.getUser().getUserId(), gameId));
+			model.addAttribute("userReviewCnt", reviewListService.getCountByGameIdAndUserId(principal.getUser().getUserId(), gameId));
 		}
 		return "user/reviewMore-page";
 	}
