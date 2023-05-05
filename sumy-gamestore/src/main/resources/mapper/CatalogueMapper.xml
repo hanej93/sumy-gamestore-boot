@@ -4,6 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.CatalogueMapper">
+
+	<select id="countGameListAll" resultType="int">
+		select count(1)
+		from game_info
+	</select>
+
+	<select id="countGameListDiscount" resultType="int">
+		select count(1)
+		from game_info
+		where game_discount_rate > 0
+	</select>
+
+	<select id="countCategoryListGroupById" resultType="com.sumy.gamestore.dto.CategoryCountDto">
+		select category_id, category_name, count(*) as category_count
+		from game_info g
+		join category_list c
+		on g.game_category_id1 = c.category_id
+		or g.game_category_id2 = c.category_id
+		or g.game_category_id3 = c.category_id
+		or g.game_category_id4 = c.category_id
+		group by category_id
+	</select>
+
  	<select id="selectGameList" parameterType="com.sumy.gamestore.vo.CataloguePagingAndFilterVO" resultType="com.sumy.gamestore.model.GameInfo">
  		select 
 			g.game_id,

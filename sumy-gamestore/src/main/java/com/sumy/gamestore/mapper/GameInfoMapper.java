@@ -32,6 +32,6 @@ public interface GameInfoMapper {
 	public List<CategoryCountDto> countCategoryListGroupById();
 	public int countGameList(PagingVO vo);
 	public List<GameInfo> selectGameList(PagingVO vo);
-	
+
 }
 
