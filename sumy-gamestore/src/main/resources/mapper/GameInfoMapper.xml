@@ -15,7 +15,7 @@
  	</select>
  	
  	<select id="countGameList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
- 		select count(*) from game_info 
+ 		select count(1) from game_info
  		<where>
 			<if test="	keyword != null and keyword != '' ">
 				AND game_title like CONCAT('%', #{keyword}, '%')

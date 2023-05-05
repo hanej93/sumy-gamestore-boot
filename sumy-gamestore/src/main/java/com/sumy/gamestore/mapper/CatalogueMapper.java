@@ -1,14 +1,12 @@
 package com.sumy.gamestore.mapper;
 
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-
 import com.sumy.gamestore.dto.CategoryCountDto;
-import com.sumy.gamestore.vo.CataloguePagingAndFilterVO;
 import com.sumy.gamestore.model.GameInfo;
+import com.sumy.gamestore.vo.CataloguePagingAndFilterVO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 
 

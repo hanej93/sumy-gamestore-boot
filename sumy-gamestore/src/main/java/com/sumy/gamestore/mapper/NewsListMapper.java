@@ -1,15 +1,10 @@
 package com.sumy.gamestore.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-
-import com.sumy.gamestore.vo.PagingVO;
 import com.sumy.gamestore.model.NewsList;
+import com.sumy.gamestore.vo.PagingVO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface NewsListMapper {

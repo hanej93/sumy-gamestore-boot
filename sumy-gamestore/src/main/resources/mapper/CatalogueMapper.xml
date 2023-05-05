@@ -163,7 +163,6 @@
 				having round(avg(review_star_rating)) = #{starFilter}
 		</if>
 		) as tb
-
  	</select>
  	
 </mapper>

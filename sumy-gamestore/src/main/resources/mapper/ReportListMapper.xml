@@ -12,8 +12,8 @@
 
 	<insert id="insertReport" useGeneratedKeys="true" keyColumn="report_id" keyProperty="reportId">
 		insert into report_list (
-			reportFromUserId, reviewId,
-			reportText, reportWriteDate, reportReadYn
+			report_from_user_id, review_id,
+			report_text, report_write_date, report_read_yn
 		) values(
 			#{reportFromUserId}, #{reviewId},
 			#{reportText}, #{reportWriteDate}, #{reportReadYn}

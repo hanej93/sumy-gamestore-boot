@@ -4,9 +4,92 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.sumy.gamestore.mapper.ReviewListMapper">
- 	<select id="selectReviewList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.model.ReviewList">
- 		<!-- select 
 
+	<select id="selectOneByReviewId" resultType="com.sumy.gamestore.model.ReviewList">
+		select * from review_list
+		where review_id = #{reviewId}
+	</select>
+
+	<insert id="insertReview" useGeneratedKeys="true" keyColumn="review_id" keyProperty="reviewId">
+		insert into review_list (
+			game_id
+			user_id,
+			review_text,
+			review_like_count,
+			review_report_count,
+			review_star_rating,
+			review_write_date,
+			review_update_date
+		) values (
+			#{gameId},
+			#{userId},
+			#{reviewText},
+			#{reviewLikeCount},
+			#{reviewReportCount},
+			#{reviewStarRating},
+			#{reviewWriteDate},
+			#{reviewUpdateDate}
+		)
+	</insert>
+
+	<update id="updateReview">
+		update review_list
+		set game_id=#{gameId},
+			user_id = #{userId},
+			review_text = #{reviewText},
+			review_like_count = #{reviewLikeCount},
+			review_report_count = #{reviewReportCount},
+			review_star_rating = #{reviewStarRating},
+			review_write_date = #{reviewWriteDate},
+			review_update_date = #{reviewUpdateDate}
+		where review_id = #{reviewId}
+	</update>
+
+	<delete id="deleteReportList">
+		delete from report_list
+		where review_id = #{reviewId}
+	</delete>
+
+	<delete id="deleteReview">
+		delete from review_list
+		where review_id = #{reviewId}
+	</delete>
+
+	<select id="selectReviewByGameIdUpto5" resultType="com.sumy.gamestore.dto.ReviewUserDto">
+		select * from review_list r
+		join user_info u
+		on r.user_id = u.user_id
+		where game_id = #{gameId}
+		order by review_update_date desc limit 5
+	</select>
+
+	<select id="selectReviewByGameId"  resultType="com.sumy.gamestore.dto.ReviewUserDto">
+		select * from review_list r
+		join user_info u
+		on r.user_id = u.user_id
+		where game_id = #{gameId}
+		order by review_update_date desc
+		limit #{vo.start}, #{vo.cntPerPage}
+	</select>
+
+	<select id="countReviewByGameId" resultType="int">
+		select count(1) from review_list r
+		join user_info u
+		on r.user_id = u.user_id
+		where game_id = #{gameId}
+		order by review_update_date desc
+	</select>
+
+	<select id="countReviewByGameIdAndUserName" resultType="int">
+		select count(1) from review_list r
+		join user_info u
+		on r.user_id = u.user_id
+		where r.user_id = #{userId}
+		and game_id = #{gameId}
+	</select>
+
+ 	<select id="selectReviewList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="com.sumy.gamestore.model.ReviewList">
+ 		select
 		rp.report_id,
 		rp.report_from_user_id,
 		rp.review_id,
@@ -30,15 +113,11 @@
 		from report_list as rp 
 		join user_info as fu 
 		on rp.report_from_user_id = fu.user_id 
-		
-		join review_list as rv 
+		join review_list as rv
 		on rp.review_id = rv.review_id 
-		
-		join user_info as tu 
-		on rv.user_id = tu.user_id -->
- 		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
+		join user_info as tu
+		on rv.user_id = tu.user_id
+ 		<where>
 			<if test="keyword != null and keyword != '' ">
 				AND tu.user_nickname like CONCAT('%', #{keyword}, '%')
 			</if>
@@ -48,30 +127,22 @@
 			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'No'">
 				AND report_read_yn = 0
 			</if>
-		</trim>
+		</where>
 		order by report_id desc limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
- 	<select id="countReportList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
- 		select 
-
-		count(*)
-		
-		from report_list as rp 
-		join user_info as fu 
-		on rp.report_from_user_id = fu.user_id 
-		
-		join review_list as rv 
-		on rp.review_id = rv.review_id 
-		
-		join user_info as tu 
+ 	<select id="countReviewList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
+		select
+		count(1)
+		from report_list as rp
+		join user_info as fu
+		on rp.report_from_user_id = fu.user_id
+		join review_list as rv
+		on rp.review_id = rv.review_id
+		join user_info as tu
 		on rv.user_id = tu.user_id
-		
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
-			<if test="	keyword != null and keyword != '' ">
+		<where>
+			<if test="keyword != null and keyword != '' ">
 				AND tu.user_nickname like CONCAT('%', #{keyword}, '%')
 			</if>
 			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'Yes'">
@@ -80,8 +151,8 @@
 			<if test="reportReadYn != null and reportReadYn != '' and reportReadYn == 'No'">
 				AND report_read_yn = 0
 			</if>
-		</trim>
-
+		</where>
+		limit #{start}, #{cntPerPage}
  	</select>
  	
 </mapper>
