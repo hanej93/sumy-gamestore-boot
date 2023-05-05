@@ -132,7 +132,7 @@
 					AND game_discount_rate > 0
 				</if>
 				<if test="categoryListFilter != null and categoryListFilter != '' ">
-					AND(
+					AND (
 					game_category_id1 in
 					<foreach item="category" index="index" collection="categoryListFilter" open="(" separator="," close=")">
 						 #{category}
