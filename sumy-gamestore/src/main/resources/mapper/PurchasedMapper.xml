@@ -10,7 +10,6 @@
  		p.game_id,
  		p.user_id,
  		p.purchased_write_date,
- 		
 		game_title,
 		game_dev,
 		game_price,
@@ -32,20 +31,16 @@
 		game_update_date,
 		game_sale_count,
 		game_total_earnings
-		 
 		 from
 		 purchased_game_list p
-		 
 		 join game_info g
 		 on p.game_id = g.game_id 		
-		 
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+ 		<where>
 			AND user_id = ${loginUserId}
 			<if test="keyword != null and keyword != '' ">
 				AND g.game_title like CONCAT('%', #{keyword}, '%')
 			</if>
-		</trim>
-		
+		</where>
 		<if test="orderOpt == null or orderOpt == '' ">
 		order by purchased_game_id desc  
 		</if>
@@ -58,28 +53,51 @@
 		<if test="orderOpt == 'priceDesc' ">
 		order by (game_price * (100 - game_discount_rate) / 100) desc
 		</if>
-		
 		limit #{start}, #{cntPerPage}
-		
-
  	</select>
  	
  	<select id="countPurchasedGameList" parameterType="com.sumy.gamestore.vo.PagingVO" resultType="int">
  		select
-		count(*)		 
+		count(1)
 		 from
 		 purchased_game_list p
-		 
 		 join game_info g
 		 on p.game_id = g.game_id 		
-		 
- 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+ 		<where>
 			AND user_id = ${loginUserId}
 			<if test="keyword != null and keyword != '' ">
 				AND g.game_title like CONCAT('%', #{keyword}, '%')
 			</if>
-		</trim>
-		
+		</where>
  	</select>
+
+	<select id="selectPurchasedGameListByUserId" resultType="com.sumy.gamestore.dto.PurchasedGameInfoDto">
+		select * from purchased_game_list as p
+		join game_info as g
+		  on p.game_id = g.game_id
+		where user_id = #{userId}
+		order by purchased_game_id desc
+	</select>
+
+	<insert id="insertPurchasedGameList" parameterType="com.sumy.gamestore.model.PurchasedGameList" useGeneratedKeys="true" keyColumn="purchased_game_id" keyProperty="purchasedGameId">
+		insert into purchased_game_list (
+			gameId, userId, purchasedWriteDate
+		)
+		values(
+			#{gameId}, #{userId}, #{purchasedWriteDate}
+		)
+	</insert>
+
+	<select id="countPurchasedGameListByIds" resultType="int">
+		select count(1) from purchased_game_list
+		where user_id = #{userId}
+		  and game_id = #{gameId}
+	</select>
+
+	<delete id="deletePurchasedGameListByIds">
+		delete from purchased_game_list
+		  where user_id = #{userId}
+		    and game_id = #{gameId}
+	</delete>
  	
 </mapper>
