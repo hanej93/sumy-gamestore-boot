@@ -15,8 +15,8 @@ import com.sumy.gamestore.service.NewsListService;
 @Controller
 public class NewsController {
 	
-	NewsListService newsListService;
-	
+	private final NewsListService newsListService;
+
 	// 뉴스 리스트 페이지
 	@GetMapping("/sumy/news/list")
 	public String showReview(PagingVO vo, Model model
@@ -46,7 +46,7 @@ public class NewsController {
 	// 뉴스 상세보기 페이지
 	@GetMapping("/sumy/news/{newsId}")
 	public String showSingleProduct(@PathVariable int newsId, Model model) {
-		
+
 		model.addAttribute("news", newsListService.findById(newsId));
 
 		return "user/page-news-detail";
