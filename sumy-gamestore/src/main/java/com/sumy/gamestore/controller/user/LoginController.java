@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sumy.gamestore.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -54,6 +55,7 @@ public class LoginController {
 	private final AuthenticationManager authenticationManager;
 	private final LoginUserService loginUserService;
 	private final MailSendService mailSendService;
+	private final FileUploadService fileUploadService;
 
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/auth/naver/callback", method = { RequestMethod.GET, RequestMethod.POST })
@@ -233,42 +235,7 @@ public class LoginController {
 	@ResponseBody
 	@PostMapping("/sumy/profileImgAdd")
 	public String test17(@RequestPart(value = "file", required = false) MultipartFile file) {
-		System.out.println(file.getOriginalFilename());
-
-		if (file == null || file.isEmpty()) {
-			System.out.println("파일이 없음");
-		}
-
-		// 현재 날짜 조회 - ex) 2021-07-07
-		String currentDate = LocalDate.now().toString();
-		// 파일 저장 경로 (현재 날짜를 포함) - ex) C:/upload/2021-07-07/
-		String uploadFilePath = "C:\\upload\\" + currentDate + "/";
-
-		// 파일 확장자 ex) jpg, png ..
-		String prefix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1,
-				file.getOriginalFilename().length());
-
-		// 랜덤아이디로 파일명 생성
-		String filename = UUID.randomUUID().toString() + "." + prefix;
-
-		// 폴더가 없다면 생성
-		File folder = new File(uploadFilePath);
-		if (!folder.isDirectory()) {
-			folder.mkdirs();
-		}
-
-		// 실제 저장되는 위치
-		String pathname = uploadFilePath + filename;
-		// 가상 가상 파일 위치 - ex) /upload/2021-07-07/파일명.jpg
-		String resourcePathname = "/upload/" + currentDate + "/" + filename;
-		File dest = new File(pathname);
-		try {
-			file.transferTo(dest);
-
-		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String resourcePathname = fileUploadService.uploadFile(file);
 		return resourcePathname;
 	}
 
